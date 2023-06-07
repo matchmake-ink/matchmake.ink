@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { databaseClient } from "../../backend/client";
+import { backendClient } from "../../backend/client";
 import { TextInputField } from "../text-input-field/TextInputField";
 
 export interface CreateTeamProps {
@@ -39,7 +39,7 @@ export function CreateTeam({ userId }: CreateTeamProps) {
         className="bg-turquois-500 hover:bg-turquois-400 text-white p-2 m-2 rounded-lg disabled:bg-turquois-600"
         onClick={(e) => {
           e.preventDefault();
-          databaseClient
+          backendClient
             .from("teams")
             .insert([
               {

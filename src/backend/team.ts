@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { databaseClient } from "./client";
+import { backendClient } from "./client";
 import { useSession } from "./session";
 
 export interface Team {
@@ -28,7 +28,7 @@ export function useCurrentTeam(): Team {
   const session = useSession();
 
   useEffect(() => {
-    databaseClient
+    backendClient
       .from("teams")
       .select("*")
       .contains("members", [session?.user.id])
