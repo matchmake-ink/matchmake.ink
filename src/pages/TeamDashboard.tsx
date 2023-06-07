@@ -1,11 +1,4 @@
-import { useCurrentTeam } from "../backend/team";
-import { useCurrentProfile } from "../backend/profile";
-import { RecentMatches } from "../components/recent-matches/RecentMatches";
-
 export default function TeamDashboard() {
-  const team = useCurrentTeam();
-  const profile = useCurrentProfile();
-
   // needs:
   // - Team Info box
   //     - Team tag
