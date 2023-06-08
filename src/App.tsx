@@ -7,6 +7,7 @@ import TeamJoin from "./pages/TeamJoin";
 import TeamDashboard from "./pages/TeamDashboard";
 
 import { Header } from "./components/header/Header";
+import { Footer } from "./components/footer/Footer";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/settings" element={<p>settings</p>} />
         <Route path="/login" element={<Login />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

@@ -13,7 +13,7 @@
 }
 
 .page {
-  @apply text-white p-4
+  @apply text-white p-4 min-h-screen
 }
 
 body {
