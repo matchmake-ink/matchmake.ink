@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { databaseClient } from "./client";
+import { backendClient } from "./client";
 import { useSession } from "./session";
 
 export interface Team {
   tag: string;
-  discord_server_id?: string | null;
   discord_server_invite?: string | null;
   members: string[];
+  memberNames: string[];
   invitees?: string[] | null;
   rating: number;
   rd: number;
@@ -15,9 +15,9 @@ export interface Team {
 
 export const noTeam: Team = {
   tag: "Free Agent",
-  discord_server_id: "",
   discord_server_invite: "",
   members: [],
+  memberNames: [],
   rating: 0,
   rd: 0,
   volitility: 0,
@@ -28,7 +28,7 @@ export function useCurrentTeam(): Team {
   const session = useSession();
 
   useEffect(() => {
-    databaseClient
+    backendClient
       .from("teams")
       .select("*")
       .contains("members", [session?.user.id])
@@ -37,6 +37,19 @@ export function useCurrentTeam(): Team {
           console.log(error.message);
         } else {
           setTeam(data[0] as Team);
+
+          // this is a hack to get the member names to show up
+          // it needs to be implemented properly
+          setTeam((team) => {
+            if (team) {
+              return {
+                ...team,
+                memberNames: team.members.map((member) => member),
+              };
+            } else {
+              return team;
+            }
+          });
         }
       });
   }, [session]);

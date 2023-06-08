@@ -9,7 +9,6 @@ describe("CreateTeam page", () => {
   it("renders a form with a name input, discord id input, and discord invite link input ", () => {
     render(<CreateTeam {...props} />);
     expect(screen.getByLabelText(/Team Tag/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Discord Server ID/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Discord Server Invite/i)).toBeInTheDocument();
   });
   it("renders a submit button", () => {

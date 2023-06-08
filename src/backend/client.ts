@@ -11,4 +11,4 @@ if (url === undefined || anonKey === undefined) {
   );
 }
 
-export const databaseClient = createClient(url, anonKey);
+export const backendClient = createClient(url, anonKey);

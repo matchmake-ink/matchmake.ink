@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AuthChangeEvent, Session } from "@supabase/supabase-js";
-import { databaseClient } from "./client";
+import { backendClient } from "./client";
 import { updateDiscordUserData, updateProfile } from "./profile";
 import { useNavigate } from "react-router-dom";
 
@@ -65,11 +65,11 @@ export class SessionSingleton {
       throw new Error("Error - use Singleton.getInstance()");
     }
 
-    databaseClient.auth.getSession().then(({ data: { session } }) => {
+    backendClient.auth.getSession().then(({ data: { session } }) => {
       this.currentSession = session;
       this.sessionFound = true;
     });
-    databaseClient.auth.onAuthStateChange((event: AuthChangeEvent, session) => {
+    backendClient.auth.onAuthStateChange((event: AuthChangeEvent, session) => {
       if (event == "SIGNED_IN" && session !== null) {
         console.log("signed in!");
         updateProfile({

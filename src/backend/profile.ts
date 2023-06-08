@@ -1,5 +1,5 @@
 import { Session } from "@supabase/supabase-js";
-import { databaseClient } from "./client";
+import { backendClient } from "./client";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { SessionSingleton } from "./session";
@@ -35,7 +35,7 @@ export interface ProfileUpdate {
 export async function updateProfile(
   inputs: ProfileUpdate
 ): Promise<string | void> {
-  const { error } = await databaseClient.from("profiles").upsert(inputs);
+  const { error } = await backendClient.from("profiles").upsert(inputs);
 
   if (error) {
     return Promise.reject(`Error updating profile: ${error.message}`);
@@ -67,7 +67,7 @@ export async function updateDiscordUserData(
         email: res.data.email,
       };
 
-      databaseClient
+      backendClient
         .from("profiles")
         .upsert(updates)
         .then((response) => {
@@ -113,7 +113,7 @@ export function useCurrentProfile(): [Profile | null, boolean] {
       if (session === null)
         return Promise.reject("Session is null. Are you logged in?");
 
-      const { data, error } = await databaseClient
+      const { data, error } = await backendClient
         .from("profiles")
         .select("*")
         .eq("id", session.user.id)

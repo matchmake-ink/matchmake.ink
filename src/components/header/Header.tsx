@@ -3,7 +3,7 @@ import { BsGearFill } from "react-icons/bs";
 import { MdGroups } from "react-icons/md";
 import { useSession } from "../../backend/session";
 import { NavItem } from "./NavItem";
-import { databaseClient } from "../../backend/client";
+import { backendClient } from "../../backend/client";
 import { useNavigate } from "react-router-dom";
 
 export function Header() {
@@ -28,7 +28,7 @@ export function Header() {
       <button
         onClick={() => {
           if (session) {
-            databaseClient.auth.signOut();
+            backendClient.auth.signOut();
           } else {
             navigate("/login");
           }
