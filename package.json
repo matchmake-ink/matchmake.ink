@@ -20,7 +20,8 @@
     "react-router-dom": "^6.11.2",
     "toml": "^3.0.0",
     "toml-eslint-parser": "^0.6.0",
-    "typescript-plugin-toml": "^0.2.0"
+    "typescript-plugin-toml": "^0.2.0",
+    "vitest-fetch-mock": "^0.2.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
