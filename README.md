@@ -52,4 +52,5 @@ Once you've made an accepted PR, feel free to DM me on discord (FireSquid#8882)
 	- `VITE_SUPABASE_URL`, which should be `"https://zdxeeicdysjerhtalkbi.supabase.co"`
 	- `VITE_SUPABASE_ANON_KEY`, which I can't give out randomly. Contact FireSquid#8882 if you'd like to start developing and want this.
 5. Run `npm run dev`
-6. Choose an issue to start working on. If you're new, look for stuff marked with `good-first-issue`
+6. Run `npm run test`
+7. Choose an issue to start working on. If you're new, look for stuff marked with `good-first-issue`
