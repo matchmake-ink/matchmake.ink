@@ -8,7 +8,6 @@ export interface CreateTeamProps {
 
 export function CreateTeam({ userId }: CreateTeamProps) {
   const [teamTag, setTeamTag] = useState("");
-  const [discordServerId, setDiscordServerId] = useState("");
   const [discordServerInvite, setDiscordServerInvite] = useState("");
   const [status, setStatus] = useState<string | null>(null);
   const [statusColor, setStatusColor] = useState<
@@ -20,14 +19,6 @@ export function CreateTeam({ userId }: CreateTeamProps) {
       <h3 className="text-xl text-center m-2">Create Team</h3>
       <TextInputField label="Team Tag" onChange={setTeamTag} id="team-tag" />
       <TextInputField
-        label="Discord Server ID"
-        onChange={setDiscordServerId}
-        id="discord-server-id"
-        infoUrl={
-          "https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-"
-        }
-      />
-      <TextInputField
         label="Discord Server Invite"
         onChange={setDiscordServerInvite}
         id="discord-server-invite"
@@ -35,7 +26,7 @@ export function CreateTeam({ userId }: CreateTeamProps) {
       <button
         type="submit"
         role="submit"
-        disabled={teamTag === "" || discordServerId === "" || userId === null}
+        disabled={teamTag === "" || userId === null}
         className="bg-turquois-500 hover:bg-turquois-400 text-white p-2 m-2 rounded-lg disabled:bg-turquois-600"
         onClick={(e) => {
           e.preventDefault();
@@ -44,7 +35,6 @@ export function CreateTeam({ userId }: CreateTeamProps) {
             .insert([
               {
                 tag: teamTag,
-                discord_server_id: discordServerId,
                 discord_server_invite: discordServerInvite,
                 members: [userId],
               },
