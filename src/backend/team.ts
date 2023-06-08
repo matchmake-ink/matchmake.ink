@@ -23,11 +23,13 @@ export const noTeam: Team = {
   volitility: 0,
 };
 
-export function useCurrentTeam(): Team {
+export function useCurrentTeam(): [Team, boolean] {
   const [team, setTeam] = useState<Team>(noTeam);
+  const [loading, setLoading] = useState<boolean>(true);
   const session = useSession();
 
   useEffect(() => {
+    setLoading(true);
     backendClient
       .from("teams")
       .select("*")
@@ -50,9 +52,11 @@ export function useCurrentTeam(): Team {
               return team;
             }
           });
+
+          setLoading(false);
         }
       });
   }, [session]);
 
-  return team;
+  return [team, loading];
 }

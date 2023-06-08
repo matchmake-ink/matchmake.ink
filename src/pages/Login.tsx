@@ -4,12 +4,14 @@ import { backendClient } from "../backend/client";
 
 export default function Login() {
   return (
-    <Auth
-      supabaseClient={backendClient}
-      onlyThirdPartyProviders={true}
-      providers={["discord"]}
-      appearance={{ theme: ThemeSupa }}
-      dark={true}
-    />
+    <main className="page">
+      <Auth
+        supabaseClient={backendClient}
+        onlyThirdPartyProviders={true}
+        providers={["discord"]}
+        appearance={{ theme: ThemeSupa }}
+        dark={true}
+      />
+    </main>
   );
 }

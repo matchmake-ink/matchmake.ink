@@ -1,7 +1,18 @@
+import TeamJoin from "./TeamJoin";
+import TeamDashboard from "./TeamDashboard";
+import { useCurrentTeam } from "../backend/team";
+
 export default function Home() {
+  const [team, loading] = useCurrentTeam();
   return (
-    <main className="page">
-      <p>Homepage</p>
-    </main>
+    <>
+      {loading ? (
+        <p>Loading...</p>
+      ) : team.tag === "Free Agent" ? (
+        <TeamJoin />
+      ) : (
+        <TeamDashboard />
+      )}
+    </>
   );
 }
