@@ -7,7 +7,7 @@ export interface Contributor {
 
 export function Footer() {
   return (
-    <footer className="flex flex-col items-center justify-center py-4 text-sm text-gray-500 bg-background-darker">
+    <footer className="h-15 flex flex-col items-center justify-center py-4 text-sm text-gray-500 bg-background-darker w-full bottom-0 absolute">
       <p className="mb-2">Made by the following contributors:</p>
       <div className="flex flex-wrap justify-center">
         {contributors.map((contributor) => (
