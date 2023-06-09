@@ -22,13 +22,13 @@ export default function TeamJoin() {
 
   // note - team logo is a placeholder for now because it hasn't been implemented
   return (
-    <div className="page flex-col flex justify-center align-center">
+    <main className="page flex-col flex justify-center align-center">
       {creatingTeam ? (
         <CreateTeam userId={profile?.id || null} />
       ) : (
         createTeamButton
       )}
       <InvitedTeams profile={profile} />
-    </div>
+    </main>
   );
 }

@@ -23,18 +23,20 @@ export const noTeam: Team = {
   volitility: 0,
 };
 
-export function useCurrentTeam(): Team {
+export function useCurrentTeam(): [Team, boolean] {
   const [team, setTeam] = useState<Team>(noTeam);
+  const [loading, setLoading] = useState<boolean>(true);
   const session = useSession();
 
   useEffect(() => {
+    setLoading(true);
     backendClient
       .from("teams")
       .select("*")
       .contains("members", [session?.user.id])
-      .then(({ data, error }) => {
-        if (error) {
-          console.log(error.message);
+      .then(({ data }) => {
+        if (data === null || data.length === 0) {
+          setTeam(noTeam);
         } else {
           setTeam(data[0] as Team);
 
@@ -51,8 +53,9 @@ export function useCurrentTeam(): Team {
             }
           });
         }
+        setLoading(false);
       });
   }, [session]);
 
-  return team;
+  return [team, loading];
 }
