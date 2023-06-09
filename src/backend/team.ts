@@ -34,9 +34,9 @@ export function useCurrentTeam(): [Team, boolean] {
       .from("teams")
       .select("*")
       .contains("members", [session?.user.id])
-      .then(({ data, error }) => {
-        if (error) {
-          console.log(error.message);
+      .then(({ data }) => {
+        if (data === null || data.length === 0) {
+          setTeam(noTeam);
         } else {
           setTeam(data[0] as Team);
 
@@ -52,9 +52,8 @@ export function useCurrentTeam(): [Team, boolean] {
               return team;
             }
           });
-
-          setLoading(false);
         }
+        setLoading(false);
       });
   }, [session]);
 

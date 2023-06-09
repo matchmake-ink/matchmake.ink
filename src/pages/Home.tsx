@@ -7,7 +7,9 @@ export default function Home() {
   return (
     <>
       {loading ? (
-        <p>Loading...</p>
+        <h4 className="text-center align-middle text-white text-4xl">
+          Loading...
+        </h4>
       ) : team.tag === "Free Agent" ? (
         <TeamJoin />
       ) : (

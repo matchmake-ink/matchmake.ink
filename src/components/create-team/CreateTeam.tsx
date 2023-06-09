@@ -47,6 +47,7 @@ export function CreateTeam({ userId }: CreateTeamProps) {
                 setStatusColor("text-red-500");
                 console.log(error.message);
               } else {
+                window.location.reload();
                 setStatus("Team created!");
                 setStatusColor("text-turquois-500");
               }
