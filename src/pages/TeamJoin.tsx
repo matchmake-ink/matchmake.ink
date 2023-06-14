@@ -13,7 +13,7 @@ export default function TeamJoin() {
     <div className="m-2 flex flex-col justify-center align-middle">
       <button
         onClick={() => setCreatingTeam(true)}
-        className="bg-blue-500 p-4 rounded-lg m-4 w-48 h-24 text-xl mx-auto text-center align-middle hover:bg-blue-400 transition-all"
+        className="bg-accent-500 p-4 rounded-lg m-4 w-48 h-24 text-xl mx-auto text-center align-middle hover:bg-accent-400 transition-all"
       >
         Create Team
       </button>

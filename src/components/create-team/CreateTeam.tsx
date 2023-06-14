@@ -11,7 +11,7 @@ export function CreateTeam({ userId }: CreateTeamProps) {
   const [discordServerInvite, setDiscordServerInvite] = useState("");
   const [status, setStatus] = useState<string | null>(null);
   const [statusColor, setStatusColor] = useState<
-    "text-turquois-500" | "text-red-500"
+    "text-red-500" | "text-green-500"
   >("text-red-500");
 
   return (
@@ -27,7 +27,7 @@ export function CreateTeam({ userId }: CreateTeamProps) {
         type="submit"
         role="submit"
         disabled={teamTag === "" || userId === null}
-        className="bg-turquois-500 hover:bg-turquois-400 text-white p-2 m-2 rounded-lg disabled:bg-turquois-600"
+        className="bg--500 hover:bg-primary-400 text-white p-2 m-2 rounded-lg disabled:bg-primary-600"
         onClick={(e) => {
           e.preventDefault();
           backendClient
@@ -49,7 +49,7 @@ export function CreateTeam({ userId }: CreateTeamProps) {
               } else {
                 window.location.reload();
                 setStatus("Team created!");
-                setStatusColor("text-turquois-500");
+                setStatusColor("text-green-500");
               }
             });
         }}

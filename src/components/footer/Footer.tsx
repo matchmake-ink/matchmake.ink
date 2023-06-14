@@ -14,7 +14,7 @@ export function Footer() {
           <a
             href={contributor.url}
             key={contributor.name}
-            className="mx-2 hover:text-blue-300 transition-all"
+            className="mx-2 hover:text-accent-300 transition-all"
             target="_blank"
             rel="noreferrer"
           >
