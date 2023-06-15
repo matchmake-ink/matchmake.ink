@@ -8,7 +8,7 @@ export default {
         splatoon: ["ProjectPaintball", "sans-serif"],
       },
       colors: {
-        turquois: {
+        primary: {
           50: "#f1fcfa",
           100: "#cef9f0",
           200: "#9df2e0",
@@ -21,7 +21,7 @@ export default {
           900: "#164b48",
           950: "#062d2c",
         },
-        red: {
+        accent: {
           50: "#fef4f2",
           100: "#fde7e3",
           200: "#fcd4cc",
@@ -33,19 +33,6 @@ export default {
           800: "#95311f",
           900: "#7c2e20",
           950: "#43150c",
-        },
-        blue: {
-          50: "#f1f3ff",
-          100: "#e6ebff",
-          200: "#d0d9ff",
-          300: "#abb9ff",
-          400: "#7b8aff",
-          500: "#4651ff",
-          600: "#2123ff",
-          700: "#100ff2",
-          800: "#0d0ddc",
-          900: "#0c0ca6",
-          950: "#040871",
         },
         background: {
           lighter: "#3b3b4d",

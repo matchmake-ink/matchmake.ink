@@ -11,6 +11,7 @@ export default function Login() {
         providers={["discord"]}
         appearance={{ theme: ThemeSupa }}
         dark={true}
+        redirectTo={window.location.origin}
       />
     </main>
   );
