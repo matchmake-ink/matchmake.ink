@@ -1,3 +1,3 @@
 export function Header() {
-  return <p>My awesome header</p>;
+  return <a href="/">matchmake.ink</a>;
 }
