@@ -1,3 +1,10 @@
+import { Play as Serif } from "@next/font";
+const serif = new Serif({
+  subsets: ["latin-ext"],
+  variable: "--font-sans",
+  weight: 400,
+});
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -7,6 +14,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        normal: ["Play", "sans-serif"],
+      },
       colors: {
         background: {
           main: "#07020d",

@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
-  @apply bg-background-main text-primary-main;
+  @apply bg-background-main text-primary-main font-normal;
 }
 
 a {
