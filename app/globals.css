@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-background-main text-primary-main font-normal;
+  @apply bg-background-main text-primary-main;
 }
 
 a {
