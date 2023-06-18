@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-
+import { Database } from "../types/supabase";
 // having erros here? Make sure you've filled out your .env with the VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY. See README.md for more info.
 
 const url = import.meta.env.VITE_SUPABASE_URL;
@@ -11,4 +11,4 @@ if (url === undefined || anonKey === undefined) {
   );
 }
 
-export const backendClient = createClient(url, anonKey);
+export const backendClient = createClient<Database>(url, anonKey);

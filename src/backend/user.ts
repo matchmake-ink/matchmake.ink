@@ -197,4 +197,11 @@ class Team {
           });
       });
   }
+  upsert() {
+    backendClient.from("teams").upsert({
+      team_tag: this.teamTag,
+      member_ids: this.memberIds,
+      discord_server_invite: this.discordServerInvite,
+    });
+  }
 }
