@@ -76,6 +76,7 @@ export interface Database {
       teams: {
         Row: {
           discord_server_invite: string | null
+          invited_members: string[] | null
           rating: number
           rd: number
           submitted_matches: Json[] | null
@@ -84,6 +85,7 @@ export interface Database {
         }
         Insert: {
           discord_server_invite?: string | null
+          invited_members?: string[] | null
           rating?: number
           rd?: number
           submitted_matches?: Json[] | null
@@ -92,6 +94,7 @@ export interface Database {
         }
         Update: {
           discord_server_invite?: string | null
+          invited_members?: string[] | null
           rating?: number
           rd?: number
           submitted_matches?: Json[] | null

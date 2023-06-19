@@ -92,11 +92,11 @@ class Profile {
 
         if (data) {
           this.status = PROFILE_STATUS.LOGGED_IN;
-          this.avatarUrl = data[0].avatar_url;
-          this.email = data[0].email;
-          this.discordId = data[0].discord_id;
-          this.discordTag = data[0].discord_tag;
-          this.friendCode = data[0].friend_code;
+          this.avatarUrl = data[0].avatar_url ?? "";
+          this.email = data[0].email ?? "";
+          this.discordId = data[0].discord_id ?? "";
+          this.discordTag = data[0].discord_tag ?? "";
+          this.friendCode = data[0].friend_code ?? "";
         }
       });
   }
@@ -137,7 +137,7 @@ class Team {
 
   // getters and setters
   getTeamTag(): string {
-    return this.teamTag;
+    return this.teamTag ?? "";
   }
   getMemberIds(): string[] {
     return this.memberIds;
@@ -174,15 +174,15 @@ class Team {
         }
 
         this.status = TEAM_STATUS.ON_TEAM;
-        this.discordServerInvite = data[0].discord_server_invite;
+        this.discordServerInvite = data[0].discord_server_invite ?? "";
         this.rating = data[0].rating;
         this.rd = data[0].rd;
-        this.vol = data[0].vol;
+        this.vol = data[0].volitility;
 
         backendClient
           .from("profiles")
           .select("*")
-          .in("id", data[0].member_ids)
+          .eq("team", this.teamTag)
           .then(({ data, error }) => {
             // errors should not happen here
             if (error) {
@@ -192,14 +192,20 @@ class Team {
 
             if (data) {
               this.memberIds = data.map((profile) => profile.id);
-              this.memberNames = data.map((profile) => profile.discord_tag);
+              this.memberNames = data.map(
+                (profile) => profile.discord_tag ?? "UnknownUser"
+              );
             }
           });
       });
   }
+
   upsert() {
+    if (this.teamTag === "") {
+      return;
+    }
     backendClient.from("teams").upsert({
-      team_tag: this.teamTag,
+      tag: this.teamTag,
       member_ids: this.memberIds,
       discord_server_invite: this.discordServerInvite,
     });
