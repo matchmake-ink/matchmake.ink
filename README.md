@@ -18,7 +18,7 @@ matchmake.ink is a website built to provide the best competitive experience for 
   - [ ] Matchmaking based on rating
 
 # Contributors
-All contributors are welcome! If you don't know code, but are a TO, artist, or just want to help, feel free to DM FireSquid#8881 on discord. For programmers, we use React with typescript for the frontend. Issues should be well documented, so work on whatever you wish. If you'd like to become more involved as a developer, dm FireSquid#8881 about joining the team.
+All contributors are welcome! If you don't know code, but are a TO, artist, or just want to help, feel free to DM firesquid6 on discord. For programmers, we use React with typescript for the frontend. Issues should be well documented, so work on whatever you wish. If you'd like to become more involved as a developer, dm firesquid6 about joining the team.
 
 ## TOs
 If you're a tournament organizer, you will at some point be able to submit results of your tournaments to matchmake.ink. Follow us on twitter and join our discord for more info!
@@ -42,15 +42,14 @@ We're using Vite, React, and Typescript deployed to netlify on the frontend, and
 The main branch is our primary development branch, with PR's made to production being deployed to the website.
 
 ### How to join the github org
-Once you've made an accepted PR, feel free to DM me on discord (FireSquid#8882)
+Once you've made an accepted PR, feel free to DM me on discord (firesquid6)
 ### How to start development
 1. Clone the repo with whatever you want
 2. Open the project in your editor of choice
 3. Run `npm install`
-4. Create your .env file:
-	- As of 6-3-2023, your .env file needs two variables
-	- `VITE_SUPABASE_URL`, which should be `"https://zdxeeicdysjerhtalkbi.supabase.co"`
-	- `VITE_SUPABASE_ANON_KEY`, which I can't give out randomly. Contact FireSquid#8882 if you'd like to start developing and want this.
+4. Create your .env.local file:
+	- It needs the `VITE_SUPABASE_ANON_KEY` variable
+	- Contact @firesquid6 on discord to get this
 5. Run `npm run dev`
 6. Run `npm run test`
 7. Choose an issue to start working on. If you're new, look for stuff marked with `good-first-issue`

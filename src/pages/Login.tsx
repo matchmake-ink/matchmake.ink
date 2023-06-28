@@ -2,6 +2,8 @@ import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { backendClient } from "../backend/client";
 
+const redirectUrl = import.meta.env.VITE_REDIRECT_URL as string;
+
 export default function Login() {
   return (
     <main className="page">
@@ -11,7 +13,7 @@ export default function Login() {
         providers={["discord"]}
         appearance={{ theme: ThemeSupa }}
         dark={true}
-        redirectTo={window.location.origin}
+        redirectTo={redirectUrl}
       />
     </main>
   );

@@ -1,19 +1,35 @@
 import TeamJoin from "./TeamJoin";
 import TeamDashboard from "./TeamDashboard";
-import { useCurrentTeam } from "../backend/team";
+import { useState, useEffect } from "react";
+import { getMyTeam } from "../backend/getTeam";
 
 export default function Home() {
-  const [team, loading] = useCurrentTeam();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [teamExists, setTeamExists] = useState<boolean>(false);
+
+  useEffect(() => {
+    getMyTeam()
+      .then(() => {
+        setTeamExists(true);
+      })
+      .catch(() => {
+        setTeamExists(false);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <>
       {loading ? (
         <h4 className="text-center align-middle text-white text-4xl">
           Loading...
         </h4>
-      ) : team.tag === "Free Agent" ? (
-        <TeamJoin />
-      ) : (
+      ) : teamExists ? (
         <TeamDashboard />
+      ) : (
+        <TeamJoin />
       )}
     </>
   );
