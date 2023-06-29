@@ -23,6 +23,14 @@
       "icon": "database",
       "recycle": true,
       "color": "terminal.ansiGreen"
+    },
+    {
+      "name": "functions",
+      "commands": ["cd supabase", "supabase functions serve"],
+      "split": "supabase",
+      "icon": "server",
+      "recycle": true,
+      "color": "terminal.ansiMagenta"
     }
   ]
 }

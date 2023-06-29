@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { backendClient } from "../../backend/client";
 import { TextInputField } from "../text-input-field/TextInputField";
 
 export interface CreateTeamProps {
@@ -30,28 +29,6 @@ export function CreateTeam({ userId }: CreateTeamProps) {
         className="bg--500 hover:bg-primary-400 text-white p-2 m-2 rounded-lg disabled:bg-primary-600"
         onClick={(e) => {
           e.preventDefault();
-          backendClient
-            .from("teams")
-            .insert([
-              {
-                tag: teamTag,
-                discord_server_invite: discordServerInvite,
-                members: [userId],
-              },
-            ])
-            .then(({ error }) => {
-              if (error) {
-                setStatus(
-                  "Failed to create team. Does another team with the same tag already exist? Check the console for a full error message."
-                );
-                setStatusColor("text-red-500");
-                console.log(error.message);
-              } else {
-                window.location.reload();
-                setStatus("Team created!");
-                setStatusColor("text-green-500");
-              }
-            });
         }}
       >
         {userId === null ? "Loading..." : "Create Team"}
