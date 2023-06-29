@@ -1,0 +1,28 @@
+{
+  "autorun": true,
+  "autokill": true,
+  "terminals": [
+    {
+      "name": "test",
+      "recycle": true,
+      "commands": ["cd app", "npm run test"],
+      "icon": "beaker",
+      "color": "terminal.ansiBlue"
+    },
+    {
+      "name": "dev",
+      "color": "terminal.ansiYellow",
+      "commands": ["cd app", "npm run dev"],
+      "recycle": true,
+      "icon": "device-desktop",
+      "split": "test"
+    },
+    {
+      "name": "supabase",
+      "commands": ["cd supabase"],
+      "icon": "database",
+      "recycle": true,
+      "color": "terminal.ansiGreen"
+    }
+  ]
+}

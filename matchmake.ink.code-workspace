@@ -12,5 +12,9 @@
       "name": "Root",
       "path": "."
     }
-  ]
+  ],
+  "settings": {
+    "terminal.integrated.enablePersistentSessions": false,
+    "terminal.integrated.persistentSessionReviveProcess": "never"
+  }
 }
