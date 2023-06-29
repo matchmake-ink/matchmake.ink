@@ -22,5 +22,6 @@
     "plugins": [{ "name": "typescript-plugin-toml" }]
   },
   "include": ["src"],
+  "exclude": ["node_modules", "build", "supabase"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
