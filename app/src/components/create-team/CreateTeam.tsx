@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { TextInputField } from "../text-input-field/TextInputField";
 
-export interface CreateTeamProps {
-  userId: string | null;
-}
+export function CreateTeam() {
+  const [userId, setUserId] = useState<string | null>(null);
 
-export function CreateTeam({ userId }: CreateTeamProps) {
   const [teamTag, setTeamTag] = useState("");
   const [discordServerInvite, setDiscordServerInvite] = useState("");
   const [status, setStatus] = useState<string | null>(null);

@@ -1,6 +1,6 @@
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { backendClient } from "../backend/client";
+import { backendClient } from "@/api/client";
 
 const redirectUrl = import.meta.env.VITE_REDIRECT_URL as string;
 

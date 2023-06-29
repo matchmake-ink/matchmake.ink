@@ -1,7 +1,7 @@
 import TeamJoin from "./TeamJoin";
 import TeamDashboard from "./TeamDashboard";
 import { useState, useEffect } from "react";
-import { getMyTeam } from "../backend/getTeam";
+import { getMyTeam } from "@/api/get-team";
 
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(true);

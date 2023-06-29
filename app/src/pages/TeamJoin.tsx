@@ -1,13 +1,9 @@
-import { InvitedTeams } from "../components/invited-teams/InvitedTeams";
-import { useCurrentProfile } from "../backend/profile";
+import { InvitedTeams } from "@/components/invited-teams/InvitedTeams";
 import { useState } from "react";
-import { CreateTeam } from "../components/create-team/CreateTeam";
-import { useEnforceLogin } from "../backend/session";
+import { CreateTeam } from "@/components/create-team/CreateTeam";
 
 export default function TeamJoin() {
   const [creatingTeam, setCreatingTeam] = useState(false);
-  const [profile] = useCurrentProfile();
-  useEnforceLogin();
 
   const createTeamButton = (
     <div className="m-2 flex flex-col justify-center align-middle">
@@ -23,12 +19,8 @@ export default function TeamJoin() {
   // note - team logo is a placeholder for now because it hasn't been implemented
   return (
     <main className="page flex-col flex justify-center align-center">
-      {creatingTeam ? (
-        <CreateTeam userId={profile?.id || null} />
-      ) : (
-        createTeamButton
-      )}
-      <InvitedTeams profile={profile} />
+      {creatingTeam ? <CreateTeam /> : createTeamButton}
+      <InvitedTeams />
     </main>
   );
 }

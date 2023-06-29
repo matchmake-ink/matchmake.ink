@@ -1,8 +1,9 @@
 export interface Team {
-  tag: string;
-  discord_server_invite: string | null;
+  id: string;
+  created_at: string;
+  name: string;
+  discord_server_invite: string;
   members: string[];
-  invitees?: string[] | null;
   rating: number;
   rd: number;
   volitility: number;
@@ -11,13 +12,14 @@ export interface Team {
 // gets the current user's team
 export async function getMyTeam(): Promise<Team> {
   return Promise.resolve({
-    tag: "Awesome Team",
+    id: "1234567890",
+    created_at: "2021-08-01T00:00:00.000Z",
+    name: "Awesome Team",
     members: ["abcdefg", "1234567"],
     rating: 1500,
     rd: 75,
     volitility: 10,
-    discord_server_invite: null,
-    invitees: null,
+    discord_server_invite: "",
   });
 }
 
