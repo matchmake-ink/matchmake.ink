@@ -9,7 +9,7 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "gen-types": "npx supabase gen types typescript --project-id \"zdxeeicdysjerhtalkbi\" --schema public > src/types/supabase.ts"
+    "gen-types": "npx supabase gen types typescript --project-id \"snnftfygiqoegxqyhrff\" --schema public > src/types/supabase.ts"
   },
   "dependencies": {
     "@supabase/auth-ui-react": "^0.4.2",

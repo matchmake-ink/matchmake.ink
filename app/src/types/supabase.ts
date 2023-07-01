@@ -3,66 +3,48 @@ export type Json =
   | number
   | boolean
   | null
-  | { [key: string]: Json }
+  | { [key: string]: Json | undefined }
   | Json[]
 
 export interface Database {
   public: {
     Tables: {
-      matches: {
+      invites: {
         Row: {
-          alpha: string
-          alpha_score: number | null
-          bravo: string | null
-          bravo_score: number | null
-          created_at: string | null
+          creator: string | null
           id: string
+          invitee: string | null
+          team: string | null
         }
         Insert: {
-          alpha?: string
-          alpha_score?: number | null
-          bravo?: string | null
-          bravo_score?: number | null
-          created_at?: string | null
+          creator?: string | null
           id?: string
+          invitee?: string | null
+          team?: string | null
         }
         Update: {
-          alpha?: string
-          alpha_score?: number | null
-          bravo?: string | null
-          bravo_score?: number | null
-          created_at?: string | null
+          creator?: string | null
           id?: string
+          invitee?: string | null
+          team?: string | null
         }
         Relationships: []
       }
       profiles: {
         Row: {
-          avatar_url: string | null
-          discord_id: string | null
-          discord_tag: string | null
-          email: string | null
-          friend_code: string | null
+          discordId: string
           id: string
-          team: string | null
+          ign: string | null
         }
         Insert: {
-          avatar_url?: string | null
-          discord_id?: string | null
-          discord_tag?: string | null
-          email?: string | null
-          friend_code?: string | null
+          discordId?: string
           id: string
-          team?: string | null
+          ign?: string | null
         }
         Update: {
-          avatar_url?: string | null
-          discord_id?: string | null
-          discord_tag?: string | null
-          email?: string | null
-          friend_code?: string | null
+          discordId?: string
           id?: string
-          team?: string | null
+          ign?: string | null
         }
         Relationships: [
           {
@@ -73,33 +55,60 @@ export interface Database {
           }
         ]
       }
-      teams: {
+      team_profiles: {
         Row: {
-          discord_server_invite: string | null
-          invited_members: string[] | null
-          rating: number
-          rd: number
-          submitted_matches: Json[] | null
-          tag: string
-          volitility: number
+          created_at: string | null
+          discordServer: string
+          id: string
+          name: string
         }
         Insert: {
-          discord_server_invite?: string | null
-          invited_members?: string[] | null
-          rating?: number
-          rd?: number
-          submitted_matches?: Json[] | null
-          tag: string
-          volitility?: number
+          created_at?: string | null
+          discordServer?: string
+          id?: string
+          name?: string
         }
         Update: {
-          discord_server_invite?: string | null
-          invited_members?: string[] | null
-          rating?: number
-          rd?: number
-          submitted_matches?: Json[] | null
-          tag?: string
-          volitility?: number
+          created_at?: string | null
+          discordServer?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      team_ratings: {
+        Row: {
+          rating: number | null
+          rd: number | null
+          team_id: string
+          volitility: number | null
+        }
+        Insert: {
+          rating?: number | null
+          rd?: number | null
+          team_id: string
+          volitility?: number | null
+        }
+        Update: {
+          rating?: number | null
+          rd?: number | null
+          team_id?: string
+          volitility?: number | null
+        }
+        Relationships: []
+      }
+      team_registry: {
+        Row: {
+          team_id: string | null
+          user_id: string
+        }
+        Insert: {
+          team_id?: string | null
+          user_id: string
+        }
+        Update: {
+          team_id?: string | null
+          user_id?: string
         }
         Relationships: []
       }
