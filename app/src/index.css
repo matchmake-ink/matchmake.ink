@@ -13,9 +13,9 @@
 }
 
 .page {
-  @apply text-white p-4 relative
+  @apply p-4 relative
 }
 
 body {
-  @apply bg-background-normal font-body outline-none
+  @apply bg-background-normal font-body outline-none text-white
 }

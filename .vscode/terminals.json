@@ -26,7 +26,7 @@
     },
     {
       "name": "functions",
-      "commands": ["cd supabase", "supabase functions serve"],
+      "commands": ["cd supabase", "supabase start", "supabase functions serve"],
       "split": "supabase",
       "icon": "server",
       "recycle": true,

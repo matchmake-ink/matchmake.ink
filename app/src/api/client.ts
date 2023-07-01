@@ -6,6 +6,7 @@ const url = import.meta.env.VITE_SUPABASE_URL;
 const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 if (url === undefined || anonKey === undefined) {
+  console.log(url, anonKey);
   throw new Error(
     "Supabase URL or Anon Key is undefined. Please fill out env.json with them. If you do not have these, Please contact FireSquid#8882 on discord."
   );
