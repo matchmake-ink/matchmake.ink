@@ -1,10 +1,11 @@
-import { signUp, signIn } from "@/lib/auth";
+import { signUp, signIn, useUser } from "@/lib/auth";
 import { vi } from "vitest";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "@/lib/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 vi.mock("firebase/auth", async () => {
   const actual = await vi.importActual("firebase/auth");
@@ -14,6 +15,16 @@ vi.mock("firebase/auth", async () => {
     ...actual,
     createUserWithEmailAndPassword: vi.fn(),
     signInWithEmailAndPassword: vi.fn(),
+  };
+});
+
+vi.mock("react-firebase-hooks/auth", async () => {
+  const actual = await vi.importActual("react-firebase-hooks/auth");
+
+  return {
+    // @ts-ignore
+    ...actual,
+    useAuthState: vi.fn(() => [null, false, null]),
   };
 });
 
@@ -44,5 +55,12 @@ describe("auth", () => {
         password
       );
     });
+  });
+});
+
+describe("useUser", () => {
+  it("calls use auth state from firebase hooks", async () => {
+    useUser();
+    expect(useAuthState).toHaveBeenCalledWith(auth);
   });
 });

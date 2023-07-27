@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   UserCredential,
 } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export async function signUp(
   email: string,
@@ -35,4 +36,9 @@ export async function signIn(
   }
 
   return { result, error };
+}
+
+export function useUser() {
+  const [user, loading, error] = useAuthState(auth);
+  return { user, loading, error };
 }
