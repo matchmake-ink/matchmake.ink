@@ -4,7 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "./firebase";
+import { auth } from "@/lib/firebase";
 
 vi.mock("firebase/auth", async () => {
   const actual = await vi.importActual("firebase/auth");

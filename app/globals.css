@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap");
+
+@font-face {
+  font-family: "Pixel";
+  src: url("/fonts/pixel.ttf");
+}
+
+body {
+  @apply font-sans;
+}
