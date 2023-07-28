@@ -1,5 +1,7 @@
 "use client";
 import { useUser } from "@/lib/auth";
+import ProfileEditor from "@/components/profile-editor";
+import ProfileView from "@/components/profile-view";
 
 export default function Home() {
   const { user, userLoading, userError } = useUser();
@@ -12,6 +14,8 @@ export default function Home() {
           ? "Someone!"
           : user.email}{" "}
       </p>
+      <ProfileEditor />
+      <ProfileView />
     </div>
   );
 }
