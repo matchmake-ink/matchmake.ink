@@ -40,5 +40,5 @@ export async function signIn(
 
 export function useUser() {
   const [user, loading, error] = useAuthState(auth);
-  return { user, loading, error };
+  return { user: user, userLoading: loading, userError: error };
 }
