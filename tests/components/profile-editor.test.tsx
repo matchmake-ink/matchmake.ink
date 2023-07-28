@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import { setProfile } from "@/lib/profile";
 import ProfileEditor from "@/components/profile-editor";
 import { vi } from "vitest";
@@ -27,20 +27,23 @@ describe("ProfileEditor", () => {
     render(<ProfileEditor />);
     const ign = screen.getByLabelText("IGN");
     const discordTag = screen.getByLabelText("Discord Tag");
-    fireEvent.change(ign, {
-      target: {
-        value: "ign",
-      },
+    act(() => {
+      fireEvent.change(ign, {
+        target: {
+          value: "ign",
+        },
+      });
+      fireEvent.change(discordTag, {
+        target: {
+          value: "discordTag",
+        },
+      });
+      const submit = screen.getByRole("button", {
+        name: /submit/i,
+      });
+      fireEvent.click(submit);
     });
-    fireEvent.change(discordTag, {
-      target: {
-        value: "discordTag",
-      },
-    });
-    const submit = screen.getByRole("button", {
-      name: /submit/i,
-    });
-    fireEvent.click(submit);
+
     expect(setProfile).toHaveBeenCalledWith("123", "ign", "discordTag");
   });
 });

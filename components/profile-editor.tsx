@@ -40,7 +40,11 @@ export default function ProfileEditor() {
           onChange={(e) => setdiscordTag(e.target.value)}
         />
       </div>
-      <button type="button" onClick={onSubmit}>
+      <button
+        type="button"
+        onClick={onSubmit}
+        disabled={submitting || userLoading}
+      >
         Submit
       </button>
     </form>
