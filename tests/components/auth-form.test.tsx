@@ -4,8 +4,12 @@ import { vi } from "vitest";
 import { signIn, signUp } from "@/lib/auth";
 
 vi.mock("@/lib/auth", () => ({
-  signIn: vi.fn(),
-  signUp: vi.fn(),
+  signIn: vi.fn(() => {
+    return { result: undefined, error: undefined };
+  }),
+  signUp: vi.fn(() => {
+    return { result: undefined, error: undefined };
+  }),
 }));
 
 describe("AuthForm", () => {

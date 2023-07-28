@@ -6,14 +6,16 @@ export default function AuthForm() {
   const [signingIn, setSigningIn] = useState<boolean>(true);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [authError, setAuthError] = useState<string | null>(null);
 
-  const onSubmit = useCallback(() => {
-    console.log("hello from callback!");
+  const onSubmit = useCallback(async () => {
+    // TODO: add proper error handling
     if (signingIn) {
-      signIn(email, password);
+      let { result, error } = await signIn(email, password);
+      console.log(result, error);
     } else {
-      console.log("calling the signup");
-      signUp(email, password);
+      let { result, error } = await signUp(email, password);
+      console.log(result, error);
     }
   }, [email, password, signingIn]);
 

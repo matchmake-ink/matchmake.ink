@@ -6,6 +6,7 @@ import { auth } from "@/lib/firebase";
 export interface Profile {
   discordTag: string;
   ign: string;
+  teamId: string;
 }
 
 export async function setProfile(
@@ -24,5 +25,11 @@ export function useProfile() {
     doc(db, "profiles", auth.currentUser?.uid ?? "")
   );
 
-  return { profile: value, profileLoading: loading, profileError: error };
+  const profile: Profile = {
+    discordTag: value?.data()?.discordTag ?? "",
+    ign: value?.data()?.ign ?? "",
+    teamId: value?.data()?.teamId ?? "",
+  };
+
+  return { profile: profile, profileLoading: loading, profileError: error };
 }

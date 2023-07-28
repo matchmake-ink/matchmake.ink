@@ -19,7 +19,7 @@ export async function signUp(
     error = e;
   }
 
-  return { result, error };
+  return Promise.resolve({ result, error });
 }
 
 export async function signIn(
@@ -35,10 +35,13 @@ export async function signIn(
     error = e;
   }
 
-  return { result, error };
+  return Promise.resolve({ result, error });
 }
 
 export function useUser() {
-  const [user, loading, error] = useAuthState(auth);
+  let [user, loading, error] = useAuthState(auth);
+  if (user === undefined) {
+    user = null;
+  }
   return { user: user, userLoading: loading, userError: error };
 }
