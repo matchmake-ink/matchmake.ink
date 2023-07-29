@@ -22,7 +22,7 @@ export async function setProfile(
 
 export function useProfile() {
   const [value, loading, error] = useDocument(
-    doc(db, "profiles", auth.currentUser?.uid ?? "")
+    doc(db, `profiles/${auth.currentUser?.uid}`)
   );
 
   const profile: Profile = {
