@@ -1,13 +1,13 @@
 "use client";
 import { httpsCallable } from "firebase/functions";
 import { functions } from "@/lib/firebase";
-const createTeam = httpsCallable(functions, "createTeam");
+const callableFunction = httpsCallable(functions, "callableFunction");
 
 export default function Dashboard() {
   return (
     <button
       onClick={async () => {
-        const result = await createTeam({ name: "test" });
+        const result = await callableFunction();
         console.log(result);
       }}
     >

@@ -1,4 +1,4 @@
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { auth } from "@/lib/firebase";
@@ -20,6 +20,9 @@ export async function setProfile(
   });
 }
 
+/**
+ * returns the currently logged in user's profile, whether it's loading, and if there's an error.
+ */
 export function useProfile() {
   const [value, loading, error] = useDocument(
     doc(db, `profiles/${auth.currentUser?.uid}`)

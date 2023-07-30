@@ -4,12 +4,12 @@ import { getFunctions } from "firebase/functions";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBTNdHElGkqDptz9UQdE9oCgS9Ml4cRtNY",
-  authDomain: "matchmake-ink.firebaseapp.com",
-  projectId: "matchmake-ink",
-  storageBucket: "matchmake-ink.appspot.com",
-  messagingSenderId: "329277467094",
-  appId: "1:329277467094:web:d652b765053a1ebf2e1c77",
+  apiKey: "AIzaSyBqlvjhfLC0XP4WNxGCVboJS4HN9Hr6nUw",
+  authDomain: "test-project-31ae6.firebaseapp.com",
+  projectId: "test-project-31ae6",
+  storageBucket: "test-project-31ae6.appspot.com",
+  messagingSenderId: "264834451109",
+  appId: "1:264834451109:web:17d2acf0f0e368e414af4c",
 };
 
 export const app = initializeApp(firebaseConfig);
