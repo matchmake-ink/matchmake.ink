@@ -36,3 +36,4 @@ next-env.d.ts
 
 
 functions/lib
+service.ts
