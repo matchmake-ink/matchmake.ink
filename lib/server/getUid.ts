@@ -11,11 +11,15 @@ export async function getUid(request: Request): Promise<string> {
   try {
     const token: string = body.token;
 
+    if (token === undefined) {
+      throw new Error("no token");
+    }
+
     await auth.verifyIdToken(token).then((decodedToken) => {
       uid = decodedToken.uid;
     });
   } catch (e) {
-    console.log("no token");
+    console.log(e);
     return Promise.reject();
   }
 
