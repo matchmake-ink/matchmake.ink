@@ -37,3 +37,4 @@ next-env.d.ts
 
 functions/lib
 service.ts
+key.json

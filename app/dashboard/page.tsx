@@ -7,7 +7,7 @@ export default function Dashboard() {
   return (
     <button
       onClick={async () => {
-        fetch("/api/create-team", {
+        const res = await fetch("/api/team/create", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -17,6 +17,8 @@ export default function Dashboard() {
             token: (await auth.currentUser?.getIdToken(true)) || "",
           }),
         });
+
+        console.log(res);
       }}
     >
       Create a Team

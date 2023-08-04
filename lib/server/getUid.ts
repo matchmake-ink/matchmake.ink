@@ -8,20 +8,15 @@ export async function getUid(request: Request): Promise<string> {
   const body = await request.json();
   let uid = "";
 
-  try {
-    const token: string = body.token;
+  const token: string = body.token;
 
-    if (token === undefined) {
-      throw new Error("no token");
-    }
-
-    await auth.verifyIdToken(token).then((decodedToken) => {
-      uid = decodedToken.uid;
-    });
-  } catch (e) {
-    console.log(e);
-    return Promise.reject();
+  if (token === undefined) {
+    return Promise.resolve("");
   }
+
+  await auth.verifyIdToken(token).then((decodedToken) => {
+    uid = decodedToken.uid;
+  });
 
   return Promise.resolve(uid);
 }
