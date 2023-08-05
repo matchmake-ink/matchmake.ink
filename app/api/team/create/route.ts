@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 import { noId } from "@/lib/server/errors";
 import { getUid } from "@/lib/server/getUid";
 import { genRandomName, genRandomUid } from "@/lib/server/random";
-import { getDatabase } from "firebase-admin/database";
+import { getFirestore } from "firebase-admin/firestore";
 
-const db = getDatabase();
+const db = getFirestore();
 
 export async function POST(request: Request) {
   const uid = await getUid(request);
@@ -17,7 +17,7 @@ export async function POST(request: Request) {
   const teamName = genRandomName();
 
   return await db
-    .ref(`teams/${teamUid}`)
+    .doc(`teams/${teamUid}`)
     .set({
       name: teamName,
       members: [uid],
