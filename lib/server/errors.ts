@@ -9,3 +9,8 @@ export const badArgs = NextResponse.json({
   result: "error",
   message: "bad arguments",
 });
+
+export const writeError = NextResponse.json({
+  result: "error",
+  message: "write error",
+});
