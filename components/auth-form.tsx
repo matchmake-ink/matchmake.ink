@@ -1,5 +1,5 @@
 "use client";
-import { signIn, signUp } from "@/lib/auth";
+import { signIn, signUp } from "@/lib/client/auth";
 import { useCallback, useState } from "react";
 
 export default function AuthForm() {

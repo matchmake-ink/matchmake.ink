@@ -1,5 +1,5 @@
-import { useProfile } from "@/lib/profile";
-import { useUser } from "@/lib/auth";
+import { useProfile } from "@/lib/client/profile";
+import { useUser } from "@/lib/client/auth";
 
 export default function ProfileView() {
   const { user, userLoading, userError } = useUser();

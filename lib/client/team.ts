@@ -1,4 +1,4 @@
-import { auth } from "@/lib/firebase";
+import { auth } from "@/lib/client/firebase";
 
 export async function createTeam(): Promise<void> {
   const res = await fetch("/api/create-team", {

@@ -1,9 +1,9 @@
 import AuthForm from "@/components/auth-form";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { vi } from "vitest";
-import { signIn, signUp } from "@/lib/auth";
+import { signIn, signUp } from "@/lib/client/auth";
 
-vi.mock("@/lib/auth", () => ({
+vi.mock("@/lib/client/auth", () => ({
   signIn: vi.fn(() => {
     return { result: undefined, error: undefined };
   }),

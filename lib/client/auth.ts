@@ -1,4 +1,4 @@
-import { auth } from "@/lib/firebase";
+import { auth } from "@/lib/client/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,

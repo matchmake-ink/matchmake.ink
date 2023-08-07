@@ -1,6 +1,6 @@
 "use client";
 import { httpsCallable } from "firebase/functions";
-import { auth, functions } from "@/lib/firebase";
+import { auth, functions } from "@/lib/client/firebase";
 const callableFunction = httpsCallable(functions, "callableFunction");
 
 export default function Dashboard() {

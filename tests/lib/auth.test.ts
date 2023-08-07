@@ -1,10 +1,10 @@
-import { signUp, signIn, useUser } from "@/lib/auth";
+import { signUp, signIn, useUser } from "@/lib/client/auth";
 import { vi } from "vitest";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+import { auth } from "@/lib/client/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 vi.mock("firebase/auth", async () => {

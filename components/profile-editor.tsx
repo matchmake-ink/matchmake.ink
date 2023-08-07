@@ -1,7 +1,7 @@
 "use client";
-import { useUser } from "@/lib/auth";
+import { useUser } from "@/lib/client/auth";
 import { useState } from "react";
-import { setProfile } from "@/lib/profile";
+import { setProfile } from "@/lib/client/profile";
 
 export default function ProfileEditor() {
   const [submitting, setSubmitting] = useState<boolean>(false);

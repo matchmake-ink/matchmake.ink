@@ -1,12 +1,12 @@
 import { render, screen, fireEvent, act } from "@testing-library/react";
-import { setProfile } from "@/lib/profile";
+import { setProfile } from "@/lib/client/profile";
 import ProfileEditor from "@/components/profile-editor";
 import { vi } from "vitest";
 
-vi.mock("@/lib/profile", () => ({
+vi.mock("@/lib/client/profile", () => ({
   setProfile: vi.fn(),
 }));
-vi.mock("@/lib/auth", () => ({
+vi.mock("@/lib/client/auth", () => ({
   useUser: () => ({
     user: {
       uid: "123",

@@ -1,5 +1,5 @@
 "use client";
-import { useUser } from "@/lib/auth";
+import { useUser } from "@/lib/client/auth";
 import ProfileEditor from "@/components/profile-editor";
 import ProfileView from "@/components/profile-view";
 
