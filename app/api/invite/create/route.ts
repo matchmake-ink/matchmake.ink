@@ -1,21 +1,34 @@
 import { getUid } from "@/lib/server/getUid";
-import { noId, badArgs } from "@/lib/server/errors";
-import { createInvite } from "@/lib/server/invite";
+import { noId, badArgs, mustBeInTeam } from "@/lib/server/errors";
+import { getFirestore } from "firebase-admin/firestore";
+import { NextResponse } from "next/server";
+
+const db = getFirestore();
 
 export async function POST(request: Request) {
-  const uid = await getUid(request);
+  // TODO: don't send invites to users that are in a team already
+  const creator = await getUid(request);
   const body = await request.json();
 
-  if (uid === "") {
+  if (creator === "") {
     return noId;
   }
 
-  if (body.teamUid === undefined || body.expires === undefined) {
+  const teamId = (await db.doc(`profiles/${creator}`).get()).get("teamId");
+
+  if (typeof teamId !== "string" || teamId === "") {
+    return mustBeInTeam;
+  }
+
+  if (body.expires === undefined || body.uid === undefined) {
     return badArgs;
   }
-  // ensure that teamUid and expires are present in the request body
 
-  createInvite(uid, body.teamUid, body.expires);
+  await db.doc(`profiles/${body.uid}/invites/${teamId}`).set({
+    expires: body.expires,
+  });
 
-  return {};
+  return NextResponse.json({
+    result: "success",
+  });
 }

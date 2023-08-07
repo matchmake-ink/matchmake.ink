@@ -14,3 +14,8 @@ export const writeError = NextResponse.json({
   result: "error",
   message: "write error",
 });
+
+export const mustBeInTeam = NextResponse.json({
+  result: "error",
+  message: "must be in a team",
+});

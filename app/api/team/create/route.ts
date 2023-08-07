@@ -38,7 +38,7 @@ export async function POST(request: Request) {
   const addSuccess = await db
     .doc(`profiles/${uid}`)
     .update({
-      teams: [teamUid],
+      teamId: teamUid,
     })
     .then(() => {
       return true;
