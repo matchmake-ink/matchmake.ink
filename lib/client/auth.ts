@@ -49,3 +49,7 @@ export function useUser() {
 export async function getCurrentUser() {
   return auth.currentUser;
 }
+
+export async function signOut(): Promise<void> {
+  await auth.signOut();
+}
