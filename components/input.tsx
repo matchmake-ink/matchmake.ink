@@ -14,6 +14,7 @@ export default function Input({ label, type, value, onChange }: InputProps) {
       </label>
       <input
         className="border border-text rounded-md p-1 focus:outline-none focus:bg-secondary-700"
+        id={label}
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
