@@ -1,4 +1,4 @@
-import { signUp, signIn, useUser } from "@/lib/client/auth";
+import { signUp, signIn, useUser, signOut } from "@/lib/client/auth";
 import { vi } from "vitest";
 import {
   createUserWithEmailAndPassword,
@@ -15,6 +15,20 @@ vi.mock("firebase/auth", async () => {
     ...actual,
     createUserWithEmailAndPassword: vi.fn(),
     signInWithEmailAndPassword: vi.fn(),
+  };
+});
+
+vi.mock("@/lib/client/firebase", async () => {
+  const actual = await vi.importActual("@/lib/client/firebase");
+
+  return {
+    // @ts-expect-error - this is a mock, it's all fine
+    ...actual,
+    auth: {
+      // @ts-expect-error - this is a mock, it's all fine
+      ...actual.auth,
+      signOut: vi.fn(),
+    },
   };
 });
 
@@ -62,5 +76,12 @@ describe("useUser", () => {
   it("calls use auth state from firebase hooks", async () => {
     useUser();
     expect(useAuthState).toHaveBeenCalledWith(auth);
+  });
+});
+
+describe("signOut", () => {
+  it("calls signOut from firebase auth", async () => {
+    await signOut();
+    expect(auth.signOut).toHaveBeenCalledWith();
   });
 });
