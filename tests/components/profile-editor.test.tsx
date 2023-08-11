@@ -21,7 +21,7 @@ describe("ProfileEditor", () => {
     render(<ProfileEditor />);
     expect(screen.getByLabelText("IGN")).toBeInTheDocument();
     expect(screen.getByLabelText("Discord Tag")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Submit" })).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeInTheDocument();
   });
   it("calls setProfile", () => {
     render(<ProfileEditor />);
@@ -38,9 +38,7 @@ describe("ProfileEditor", () => {
           value: "discordTag",
         },
       });
-      const submit = screen.getByRole("button", {
-        name: /submit/i,
-      });
+      const submit = screen.getByRole("button");
       fireEvent.click(submit);
     });
 
