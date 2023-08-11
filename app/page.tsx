@@ -10,12 +10,6 @@ export default function Home() {
 
   return (
     <>
-      <p>
-        Hello world!
-        {userLoading || userError || user === null || user === undefined
-          ? "Someone!"
-          : user.email}{" "}
-      </p>
       <ProfileEditor />
       <ProfileView />
       <Input
