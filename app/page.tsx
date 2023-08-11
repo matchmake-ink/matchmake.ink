@@ -3,6 +3,7 @@ import { useUser } from "@/lib/client/auth";
 import ProfileEditor from "@/components/profile-editor";
 import ProfileView from "@/components/profile-view";
 import Input from "@/components/input";
+import Button from "@/components/button";
 
 export default function Home() {
   const { user, userLoading, userError } = useUser();
@@ -22,6 +23,11 @@ export default function Home() {
         type="text"
         value="Test"
         onChange={(value) => console.log(value)}
+      />
+      <Button
+        label="Test"
+        color="accent"
+        onClick={() => console.log("Clicked!")}
       />
     </>
   );
