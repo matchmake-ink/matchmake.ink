@@ -1,4 +1,5 @@
-import { auth } from "@/lib/client/firebase";
+import { auth, db } from "@/lib/client/firebase";
+import { setDoc, doc } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -8,13 +9,22 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 export async function signUp(
   email: string,
-  password: string
+  password: string,
+  ign: string,
+  discordTag: string
 ): Promise<{ result: UserCredential | null; error: any }> {
   let result = null;
   let error = null;
 
   try {
     result = await createUserWithEmailAndPassword(auth, email, password);
+
+    const userId = result.user.uid;
+    await setDoc(doc(db, "profiles", userId), {
+      ign: ign,
+      discordTag: discordTag,
+      teamId: "",
+    });
   } catch (e) {
     error = e;
   }
