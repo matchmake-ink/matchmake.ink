@@ -1,6 +1,7 @@
 "use client";
 import { useUser } from "@/lib/client/auth";
-import { useRouter } from "next/router";
+import Button from "./button";
+import { useRouter } from "next/navigation";
 import { signOut } from "@/lib/client/auth";
 
 export default function AuthButton() {
@@ -9,12 +10,16 @@ export default function AuthButton() {
 
   const buttonClicked = () => {
     signOut();
-    router.push("/signin");
+    router.push("/auth");
   };
 
   return (
     <div className="flex-none">
-      <button onClick={buttonClicked}>{user ? "Sign Out" : "Sign In"}</button>
+      <Button
+        onClick={buttonClicked}
+        label={user ? "Sign Out" : "Sign In"}
+        color="primary"
+      />
     </div>
   );
 }

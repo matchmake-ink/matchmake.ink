@@ -1,3 +1,5 @@
+import AuthButton from "./auth-button";
+
 export default function Header() {
   return (
     <header className="flex items-center justify-between px-4 py-2 bg-background-dark border-text border-b h-20">
@@ -18,6 +20,7 @@ export default function Header() {
           Settings
         </a>
       </nav>
+      <AuthButton />
     </header>
   );
 }

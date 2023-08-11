@@ -3,7 +3,7 @@ import { vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { signOut } from "@/lib/client/auth";
 
-vi.mock("next/router", () => ({
+vi.mock("next/navigation", () => ({
   useRouter: () => ({
     push: vi.fn(),
   }),
