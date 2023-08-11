@@ -47,8 +47,10 @@ describe("auth", () => {
     it("should call createUserWithEmailAndPassword with the correct arguments", async () => {
       const email = "test@example.com";
       const password = "password123";
+      const ign = "test";
+      const discordTag = "test#1234";
 
-      await signUp(email, password);
+      await signUp(email, password, ign, discordTag);
       expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(
         auth,
         email,
