@@ -5,7 +5,13 @@ import { setProfile } from "@/lib/client/profile";
 import Input from "./input";
 import Button from "./button";
 
-export default function ProfileEditor() {
+export interface ProfileEditorProps {
+  onFinishedSubmitting?: () => void;
+}
+
+export default function ProfileEditor({
+  onFinishedSubmitting = () => {},
+}: ProfileEditorProps) {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const { user, userLoading, userError } = useUser();
   const [ign, setIgn] = useState<string>("");
@@ -20,6 +26,7 @@ export default function ProfileEditor() {
     await setProfile(user.uid, ign, discordTag);
 
     setSubmitting(false);
+    onFinishedSubmitting();
   };
 
   return (
