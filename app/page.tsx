@@ -2,7 +2,7 @@
 import { useUser } from "@/lib/client/auth";
 import { useState } from "react";
 import ProfileEditor from "@/components/profile-editor";
-import ProfileView from "@/components/profile-view";
+import ProfileCard from "@/components/profile-card";
 import Input from "@/components/input";
 import Button from "@/components/button";
 import Modal from "@/components/modal";
@@ -13,7 +13,13 @@ export default function Home() {
 
   return (
     <>
-      <ProfileView />
+      <ProfileCard
+        avatarUrl="/images/"
+        ign="FireSquid"
+        discordTag="@firesquid6"
+        teamName="Bread Gang"
+        teamAvatar="https://via.placeholder.com/150"
+      />
       <Input
         label="Test"
         type="text"
