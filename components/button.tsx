@@ -1,3 +1,4 @@
+"use client";
 export interface ButtonProps {
   label: string;
   color: "primary" | "secondary" | "accent";
