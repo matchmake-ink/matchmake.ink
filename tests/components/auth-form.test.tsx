@@ -70,6 +70,20 @@ describe("AuthForm", () => {
       });
       fireEvent.click(signUpButton);
 
+      const ign = screen.getByLabelText("IGN");
+      const discordTag = screen.getByLabelText("Discord Tag");
+
+      fireEvent.change(ign, {
+        target: {
+          value: "awesomeign",
+        },
+      });
+      fireEvent.change(discordTag, {
+        target: {
+          value: "awesomediscordtag",
+        },
+      });
+
       const submit = screen.getByRole("button", {
         name: /submit/i,
       });
@@ -77,7 +91,9 @@ describe("AuthForm", () => {
       fireEvent.click(submit);
       expect(signUp).toHaveBeenCalledWith(
         "awesomemail@mail.com",
-        "awesomepassword"
+        "awesomepassword",
+        "awesomeign",
+        "awesomediscordtag"
       );
     });
   });
