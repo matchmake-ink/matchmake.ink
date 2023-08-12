@@ -1,6 +1,6 @@
 import { auth } from "@/lib/client/firebase";
 
-export async function createTeam(): Promise<void> {
+export async function createTeam(teamName: string): Promise<void> {
   const res = await fetch("/api/create-team", {
     method: "POST",
     headers: {
@@ -8,6 +8,7 @@ export async function createTeam(): Promise<void> {
     },
     body: JSON.stringify({
       token: (await auth.currentUser?.getIdToken(true)) || "",
+      name: teamName,
     }),
   });
 
