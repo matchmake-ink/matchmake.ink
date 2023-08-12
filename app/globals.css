@@ -48,3 +48,7 @@ a {
 .tint {
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+li {
+  @apply list-none flex flex-row;
+}

@@ -28,6 +28,14 @@ export function useProfile() {
     doc(db, `profiles/${auth.currentUser?.uid}`)
   );
 
+  if (auth.currentUser?.uid === undefined) {
+    return {
+      profile: undefined,
+      profileLoading: false,
+      profileError: undefined,
+    };
+  }
+
   const profile: Profile = {
     discordTag: value?.data()?.discordTag ?? "",
     ign: value?.data()?.ign ?? "",
