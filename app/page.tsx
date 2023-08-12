@@ -14,11 +14,11 @@ export default function Home() {
   return (
     <>
       <ProfileCard
-        avatarUrl="/images/"
-        ign="FireSquid"
+        avatarUrl="/images/user_placeholder.png"
+        ign="1234567890"
         discordTag="@firesquid6"
         teamName="Bread Gang"
-        teamAvatar="https://via.placeholder.com/150"
+        teamAvatar="/images/team_placeholder.png"
       />
       <Input
         label="Test"
