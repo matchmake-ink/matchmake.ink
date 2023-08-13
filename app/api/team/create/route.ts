@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
-import { noId, writeError, badArgs } from "@/lib/server/errors";
+import {
+  noId,
+  writeError,
+  badArgs,
+  mustBeFreeAgent,
+} from "@/lib/server/errors";
 import { getUid } from "@/lib/server/getUid";
-import { genRandomName, genRandomUid } from "@/lib/server/random";
+import { genRandomUid } from "@/lib/server/random";
 import { getFirestore } from "firebase-admin/firestore";
 
 const db = getFirestore();
@@ -9,6 +14,14 @@ const db = getFirestore();
 export async function POST(request: Request) {
   const uid = await getUid(request);
   const body = await request.clone().json();
+
+  const profile = await db.doc(`profiles/${uid}`).get();
+
+  if (
+    !(profile.data()?.teamId === "" || profile.data()?.teamId === undefined)
+  ) {
+    return mustBeFreeAgent;
+  }
 
   if (body.name === undefined) {
     return badArgs;
@@ -55,11 +68,10 @@ export async function POST(request: Request) {
     return writeError;
   }
 
-  return NextResponse.json({
-    status: 201,
-    result: "success",
-    message: "team created",
-    teamUid: teamUid,
-    teamName: teamName,
+  return new Response(JSON.stringify({ result: "success" }), {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    status: 200,
   });
 }
