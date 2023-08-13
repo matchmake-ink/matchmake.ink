@@ -1,11 +1,11 @@
 "use client";
 import { useUser } from "@/lib/client/auth";
 import { useState } from "react";
-import ProfileEditor from "@/components/profile-editor";
 import ProfileCard from "@/components/profile-card";
 import Input from "@/components/input";
 import Button from "@/components/button";
 import Modal from "@/components/modal";
+import CreateTeam from "@/components/create-team";
 
 export default function Home() {
   const { user, userLoading, userError } = useUser();
@@ -27,12 +27,8 @@ export default function Home() {
         onChange={(value) => console.log(value)}
       />
       <Button label="Test" color="accent" onClick={() => setOpen(true)} />
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        title="Update Your Profile"
-      >
-        <ProfileEditor onFinishedSubmitting={() => setOpen(false)} />
+      <Modal open={open} onClose={() => setOpen(false)} title="Create a Team">
+        <CreateTeam onFinishedSubmitting={() => setOpen(false)} />
       </Modal>
     </>
   );

@@ -3,15 +3,25 @@ import Input from "./input";
 import { useCallback, useState } from "react";
 import { createTeam } from "@/lib/client/team";
 
-export default function CreateTeam() {
+interface CreateTeamProps {
+  onFinishedSubmitting?: () => void;
+}
+
+export default function CreateTeam({
+  onFinishedSubmitting = () => {},
+}: CreateTeamProps) {
   const [teamName, setTeamName] = useState("");
   const submit = useCallback(async () => {
+    if (teamName === "") {
+      return;
+    }
+
+    onFinishedSubmitting();
     await createTeam(teamName);
-  }, [teamName]);
+  }, [teamName, onFinishedSubmitting]);
 
   return (
     <form>
-      <h1>Create a Team</h1>
       <Input
         label="Team Name"
         type="text"
