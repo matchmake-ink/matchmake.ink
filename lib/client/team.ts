@@ -23,7 +23,7 @@ export async function createTeam(teamName: string): Promise<void> {
 
   console.log(body);
 
-  if (body.result === "error") {
+  if (res.status > 210) {
     return Promise.reject();
   }
   return Promise.resolve();
