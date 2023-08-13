@@ -8,7 +8,6 @@ import Modal from "@/components/modal";
 import CreateTeam from "@/components/create-team";
 
 export default function Home() {
-  const { user, userLoading, userError } = useUser();
   const [open, setOpen] = useState(false);
 
   return (

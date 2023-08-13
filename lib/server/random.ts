@@ -1,5 +1,7 @@
 export function genRandomUid(): string {
-  return Date.now().toString() + (Math.random() * 100000).toString();
+  return (
+    Date.now().toString() + (Math.random() * 100000).toString().replace(".", "")
+  );
 }
 
 export const genRandomName = () =>
