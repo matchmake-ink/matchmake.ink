@@ -17,7 +17,7 @@ export default function CreateTeam({
     }
 
     onFinishedSubmitting();
-    await createTeam(teamName);
+    createTeam(teamName);
   }, [teamName, onFinishedSubmitting]);
 
   return (
