@@ -44,3 +44,13 @@ export function useProfile() {
 
   return { profile: profile, profileLoading: loading, profileError: error };
 }
+
+export async function getProfile(userId: string): Promise<Profile> {
+  const profile = await getDoc(doc(db, `profiles/${userId}`));
+
+  return Promise.resolve({
+    discordTag: profile.data()?.discordTag ?? "",
+    ign: profile.data()?.ign ?? "",
+    teamId: profile.data()?.teamId ?? "",
+  });
+}

@@ -14,11 +14,11 @@ export default function AuthForm() {
   const onSubmit = useCallback(async () => {
     // TODO: add proper error handling
     if (signingIn) {
-      let { result, error } = await signIn(email, password);
-      console.log(result, error);
+      let result = await signIn(email, password);
+      console.log(result);
     } else {
-      let { result, error } = await signUp(email, password, ign, discordTag);
-      console.log(result, error);
+      let result = await signUp(email, password, ign, discordTag);
+      console.log(result);
     }
   }, [email, password, signingIn, ign, discordTag]);
 

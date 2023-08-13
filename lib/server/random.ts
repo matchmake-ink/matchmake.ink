@@ -32,6 +32,7 @@ const nouns = [
   "losers",
   "zombies",
   "homosexuals",
+  "salmon",
 ];
 
 const adjectives = [
@@ -61,4 +62,5 @@ const adjectives = [
   "crying",
   "depressed",
   "hydrophilic",
+  "legendary",
 ];
