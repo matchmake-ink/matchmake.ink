@@ -14,6 +14,8 @@ export async function getUid(request: Request): Promise<string> {
     return Promise.resolve("");
   }
 
+  console.log(auth);
+
   await auth.verifyIdToken(token).then((decodedToken) => {
     uid = decodedToken.uid;
   });
