@@ -1,5 +1,7 @@
 import { auth } from "@/lib/client/firebase";
 
+// note - this file does not have unit tests because it simply wraps api calls
+
 export async function createTeam(teamName: string): Promise<void> {
   const res = await fetch("/api/create-team", {
     method: "POST",

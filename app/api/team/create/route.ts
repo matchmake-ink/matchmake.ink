@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { noId, writeError } from "@/lib/server/errors";
+import { noId, writeError, badArgs } from "@/lib/server/errors";
 import { getUid } from "@/lib/server/getUid";
 import { genRandomName, genRandomUid } from "@/lib/server/random";
 import { getFirestore } from "firebase-admin/firestore";
@@ -8,21 +8,25 @@ const db = getFirestore();
 
 export async function POST(request: Request) {
   const uid = await getUid(request);
+  const body = await request.clone().json();
+
+  if (body.name === undefined) {
+    return badArgs;
+  }
 
   if (uid === "") {
     return noId;
   }
 
-  // TODO: ensure that the user isn't already on a team
-
   const teamUid = genRandomUid();
-  const teamName = genRandomName();
+  const teamName: string = body.name;
 
   const createSuccess = await db
     .doc(`teams/${teamUid}`)
     .set({
       name: teamName,
       members: [uid],
+      captain: uid,
     })
     .then(() => {
       return true;
@@ -52,6 +56,7 @@ export async function POST(request: Request) {
   }
 
   return NextResponse.json({
+    status: 201,
     result: "success",
     message: "team created",
     teamUid: teamUid,

@@ -5,7 +5,7 @@ initApp();
 const auth = getAuth();
 
 export async function getUid(request: Request): Promise<string> {
-  const body = await request.json();
+  const body = await request.clone().json();
   let uid = "";
 
   const token: string = body.token;
