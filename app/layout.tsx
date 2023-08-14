@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-background-normal text-text">
         <Header />
-        <main>{children}</main>
+        <>{children}</>
       </body>
     </html>
   );

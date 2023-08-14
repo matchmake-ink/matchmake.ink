@@ -52,3 +52,7 @@ a {
 li {
   @apply list-none flex flex-row;
 }
+
+.sidebar-button {
+  @apply text-2xl font-bold m-4 p-4 rounded-lg transition-all text-text hover:text-primary-300;
+}
