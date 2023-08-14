@@ -1,5 +1,5 @@
 "use client";
-import { useUser } from "@/lib/client/auth";
+import { useTeam } from "@/lib/client/team";
 import { useState } from "react";
 import ProfileCard from "@/components/profile-card";
 import Input from "@/components/input";
@@ -8,6 +8,7 @@ import Modal from "@/components/modal";
 import CreateTeam from "@/components/create-team";
 
 export default function Home() {
+  const { team, teamLoading, teamError } = useTeam();
   const [open, setOpen] = useState(false);
 
   return (
@@ -29,6 +30,18 @@ export default function Home() {
       <Modal open={open} onClose={() => setOpen(false)} title="Create a Team">
         <CreateTeam onFinishedSubmitting={() => setOpen(false)} />
       </Modal>
+      <div>
+        <h1>Team</h1>
+        {teamLoading && <p>Loading...</p>}
+        {teamError && <p>Error: {teamError.message}</p>}
+        {team && (
+          <div>
+            <p>Team Name: {team.name}</p>
+            <p>Team Members:</p>
+            {team.members}
+          </div>
+        )}
+      </div>
     </main>
   );
 }
