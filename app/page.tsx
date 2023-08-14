@@ -11,7 +11,7 @@ export default function Home() {
   const [open, setOpen] = useState(false);
 
   return (
-    <>
+    <main>
       <ProfileCard
         avatarUrl="/images/user_placeholder.png"
         ign="1234567890"
@@ -29,6 +29,6 @@ export default function Home() {
       <Modal open={open} onClose={() => setOpen(false)} title="Create a Team">
         <CreateTeam onFinishedSubmitting={() => setOpen(false)} />
       </Modal>
-    </>
+    </main>
   );
 }

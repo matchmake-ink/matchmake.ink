@@ -1,10 +1,18 @@
 export default function Sidebar() {
   return (
-    <nav>
-      <a href="/play">Home</a>
-      <a href="/team">Team</a>
-      <a href="/profile">Profile</a>
-      <a href="/danger">Danger Zone</a>
+    <nav className="flex flex-col bg-background-dark">
+      <a href="/play" className="sidebar-button">
+        Home
+      </a>
+      <a href="/team" className="sidebar-button">
+        Team
+      </a>
+      <a href="/profile" className="sidebar-button">
+        Profile
+      </a>
+      <a href="/danger" className="sidebar-button">
+        Danger Zone
+      </a>
     </nav>
   );
 }
