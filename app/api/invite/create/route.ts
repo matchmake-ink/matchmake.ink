@@ -1,5 +1,5 @@
 import { getUid } from "@/lib/server/getUid";
-import { noId, mustBeInTeam } from "@/lib/server/errors";
+import { noId, mustBeInTeam, mustBeCaptain } from "@/lib/server/errors";
 import { getFirestore } from "firebase-admin/firestore";
 import { genRandomInviteCode } from "@/lib/server/random";
 
@@ -13,7 +13,12 @@ export async function POST(request: Request) {
     return noId;
   }
 
-  const teamId = (await db.doc(`profiles/${creator}`).get()).get("teamId");
+  const team = await db.doc(`profiles/${creator}`).get();
+  const teamId = team.get("team");
+  // check if captain is the user
+  if (team.get("captain") !== creator) {
+    return mustBeCaptain;
+  }
 
   if (typeof teamId !== "string" || teamId === "") {
     return mustBeInTeam;
