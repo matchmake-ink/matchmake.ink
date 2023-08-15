@@ -1,7 +1,6 @@
 import { getUid } from "@/lib/server/getUid";
-import { noId, badArgs, mustBeInTeam } from "@/lib/server/errors";
+import { noId, mustBeInTeam } from "@/lib/server/errors";
 import { getFirestore } from "firebase-admin/firestore";
-import { NextResponse } from "next/server";
 import { genRandomInviteCode } from "@/lib/server/random";
 
 const db = getFirestore();
