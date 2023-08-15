@@ -27,7 +27,10 @@ export async function POST(request: Request) {
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
   });
 
-  return NextResponse.json({
-    result: "success",
+  return new Response(JSON.stringify({ invite: inviteId }), {
+    headers: {
+      "content-type": "application/json",
+    },
+    status: 200,
   });
 }

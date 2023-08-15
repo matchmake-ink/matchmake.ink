@@ -65,3 +65,27 @@ export function useTeam() {
     teamError: error,
   };
 }
+
+export async function createInvite() {
+  const res = await fetch("/api/invite/create", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: (await auth.currentUser?.getIdToken(true)) || "",
+    }),
+  });
+  console.log(res);
+
+  const body = await res
+    .clone()
+    .json()
+    .then((body) => body)
+    .catch((error) => console.log(error));
+
+  if (res.status > 210 || body.invite === undefined) {
+    return Promise.reject();
+  }
+  return Promise.resolve(body.invite);
+}
