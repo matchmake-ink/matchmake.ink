@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     return badArgs;
   }
 
-  await db.doc(`profiles/${body.uid}/invites/${teamId}`).set({
+  await db.doc(`teams/${teamId}/invites/`).set({
     expires: body.expires,
   });
 
