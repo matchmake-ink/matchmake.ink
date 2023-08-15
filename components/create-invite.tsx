@@ -20,7 +20,9 @@ export default function CreateInvite() {
         onClose={() => setOpen(false)}
         title="Your Invite Code"
       >
-        <h3>{invite}</h3>
+        <h3 className="text-4xl p-6 my-2 mx-auto text-center w-72 bg-secondary-600 border-text border rounded-xl">
+          {invite}
+        </h3>
         <p>This code can be used ONCE by another user to join your team.</p>
       </Modal>
     </>
