@@ -1,12 +1,15 @@
 import Button from "./button";
 import Modal from "./modal";
 import { useState, useCallback } from "react";
+import { createInvite } from "@/lib/client/team";
 
 export default function CreateInvite() {
   const [invite, setInvite] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
-  const onClick = useCallback(() => {
-    console.log("clicked");
+  const onClick = useCallback(async () => {
+    const id = await createInvite();
+    setInvite(id);
+    setOpen(true);
   }, []);
 
   return (
@@ -18,7 +21,7 @@ export default function CreateInvite() {
         title="Your Invite Code"
       >
         <h3>{invite}</h3>
-        <p>This code can be used once by another user to join your team.</p>
+        <p>This code can be used ONCE by another user to join your team.</p>
       </Modal>
     </>
   );
