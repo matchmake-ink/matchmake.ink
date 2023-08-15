@@ -76,7 +76,6 @@ export async function createInvite() {
       token: (await auth.currentUser?.getIdToken(true)) || "",
     }),
   });
-  console.log(res);
 
   const body = await res
     .clone()

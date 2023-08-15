@@ -13,15 +13,18 @@ export async function POST(request: Request) {
     return noId;
   }
 
-  const team = await db.doc(`profiles/${creator}`).get();
-  const teamId = team.get("team");
-  // check if captain is the user
-  if (team.get("captain") !== creator) {
-    return mustBeCaptain;
-  }
+  const profile = await db.doc(`profiles/${creator}`).get();
+  const teamId = profile.get("teamId");
 
   if (typeof teamId !== "string" || teamId === "") {
     return mustBeInTeam;
+  }
+
+  const team = await db.doc(`teams/${teamId}`).get();
+
+  // check if captain is the user
+  if (team.get("captain") !== creator) {
+    return mustBeCaptain;
   }
 
   const inviteId = genRandomInviteCode();
