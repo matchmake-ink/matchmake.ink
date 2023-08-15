@@ -2,13 +2,13 @@ import { getUid } from "@/lib/server/getUid";
 import { noId, badArgs, mustBeInTeam } from "@/lib/server/errors";
 import { getFirestore } from "firebase-admin/firestore";
 import { NextResponse } from "next/server";
+import { genRandomInviteCode } from "@/lib/server/random";
 
 const db = getFirestore();
 
 export async function POST(request: Request) {
   // TODO: don't send invites to users that are in a team already
   const creator = await getUid(request);
-  const body = await request.json();
 
   if (creator === "") {
     return noId;
@@ -20,12 +20,11 @@ export async function POST(request: Request) {
     return mustBeInTeam;
   }
 
-  if (body.expires === undefined || body.uid === undefined) {
-    return badArgs;
-  }
+  const inviteId = genRandomInviteCode();
 
-  await db.doc(`teams/${teamId}/invites/`).set({
-    expires: body.expires,
+  await db.doc(`teams/${teamId}/invites/${inviteId}`).set({
+    // 7 days from now
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
   });
 
   return NextResponse.json({
