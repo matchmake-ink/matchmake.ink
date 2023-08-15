@@ -1,4 +1,5 @@
 import { getUid } from "@/lib/server/getUid";
+import { getUser } from "@/lib/server/getUser";
 import { noId, mustBeInTeam, mustBeCaptain } from "@/lib/server/errors";
 import { getFirestore } from "firebase-admin/firestore";
 import { genRandomInviteCode } from "@/lib/server/random";
@@ -6,26 +7,7 @@ import { genRandomInviteCode } from "@/lib/server/random";
 const db = getFirestore();
 
 export async function POST(request: Request) {
-  // TODO: don't send invites to users that are in a team already
-  const creator = await getUid(request);
-
-  if (creator === "") {
-    return noId;
-  }
-
-  const profile = await db.doc(`profiles/${creator}`).get();
-  const teamId = profile.get("teamId");
-
-  if (typeof teamId !== "string" || teamId === "") {
-    return mustBeInTeam;
-  }
-
-  const team = await db.doc(`teams/${teamId}`).get();
-
-  // check if captain is the user
-  if (team.get("captain") !== creator) {
-    return mustBeCaptain;
-  }
+  const { teamId } = await getUser(request);
 
   const inviteId = genRandomInviteCode();
 
