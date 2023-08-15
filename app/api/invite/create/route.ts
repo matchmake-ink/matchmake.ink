@@ -21,8 +21,9 @@ export async function POST(request: Request) {
 
   const inviteId = genRandomInviteCode();
 
-  await db.doc(`teams/${teamId}/invites/${inviteId}`).set({
+  await db.doc(`invites/${inviteId}`).set({
     // 7 days from now
+    team: teamId,
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
   });
 
