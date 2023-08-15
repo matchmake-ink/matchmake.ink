@@ -1,5 +1,5 @@
 import { getUid } from "@/lib/server/getUid";
-import { noId, mustBeInTeam } from "@/lib/server/errors";
+import { noId, mustBeInTeam, mustBeCaptain } from "@/lib/server/errors";
 import { getFirestore } from "firebase-admin/firestore";
 import { genRandomInviteCode } from "@/lib/server/random";
 
@@ -13,16 +13,25 @@ export async function POST(request: Request) {
     return noId;
   }
 
-  const teamId = (await db.doc(`profiles/${creator}`).get()).get("teamId");
+  const profile = await db.doc(`profiles/${creator}`).get();
+  const teamId = profile.get("teamId");
 
   if (typeof teamId !== "string" || teamId === "") {
     return mustBeInTeam;
   }
 
+  const team = await db.doc(`teams/${teamId}`).get();
+
+  // check if captain is the user
+  if (team.get("captain") !== creator) {
+    return mustBeCaptain;
+  }
+
   const inviteId = genRandomInviteCode();
 
-  await db.doc(`teams/${teamId}/invites/${inviteId}`).set({
+  await db.doc(`invites/${inviteId}`).set({
     // 7 days from now
+    team: teamId,
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
   });
 

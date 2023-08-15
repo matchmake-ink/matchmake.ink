@@ -2,6 +2,7 @@
 import { httpsCallable } from "firebase/functions";
 import { auth, functions } from "@/lib/client/firebase";
 import { createInvite } from "@/lib/client/team";
+import CreateInvite from "@/components/create-invite";
 const callableFunction = httpsCallable(functions, "callableFunction");
 
 export default function Dashboard() {
@@ -25,14 +26,7 @@ export default function Dashboard() {
       >
         Create a Team
       </button>
-      <button
-        onClick={async () => {
-          const inviteCode = await createInvite();
-          console.log(inviteCode);
-        }}
-      >
-        Invite someone to a team
-      </button>
+      <CreateInvite />
     </>
   );
 }
