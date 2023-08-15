@@ -9,6 +9,17 @@ export const genRandomName = () =>
     nouns[Math.floor(Math.random() * nouns.length)]
   }`;
 
+export function genRandomInviteCode(): string {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let code = "";
+
+  for (let i = 0; i < 8; i++) {
+    code += chars[Math.floor(Math.random() * chars.length)];
+  }
+
+  return code;
+}
+
 const nouns = [
   "jellyfish",
   "squids",
