@@ -35,6 +35,8 @@ export async function POST(request: Request) {
     return inviteExpired;
   }
 
+  // TODO: reject the invite if the user is on the team the invite is for
+
   const createSuccess = await db
     .doc(`teams/${team}`)
     .update({
