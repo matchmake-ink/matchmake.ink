@@ -25,12 +25,8 @@ export async function POST(request: Request) {
     return badArgs;
   }
 
-  const inviteRef = db.collection("invites").doc(inviteId);
+  const inviteRef = await db.doc(`invites/${inviteId}`);
   const invite = await inviteRef.get();
-
-  if (!invite.exists) {
-    return serverError;
-  }
 
   team = invite.get("team");
   const expires = invite.get("expires");
