@@ -1,4 +1,10 @@
-import { mustBeCaptain, mustBeInTeam, noId, writeError } from "./errors";
+import {
+  mustBeCaptain,
+  mustBeInTeam,
+  noId,
+  writeError,
+  mustBeFreeAgent,
+} from "./errors";
 import { getUid } from "./getUid";
 import { getFirestore } from "firebase-admin/firestore";
 
@@ -9,7 +15,11 @@ const db = getFirestore();
  * @param request - The request from the client
  * @param captain - Whether the user has to be the captain or not
  */
-export async function getUser(request: Request, captain: boolean = false) {
+export async function getUser(
+  request: Request,
+  captain: boolean = false,
+  mustBeInTeam: boolean = true
+) {
   const creator = await getUid(request);
 
   if (creator === "") {
@@ -19,14 +29,18 @@ export async function getUser(request: Request, captain: boolean = false) {
   const profile = await db.doc(`profiles/${creator}`).get();
   const teamId = profile.get("teamId");
 
-  if (typeof teamId !== "string" || teamId === "") {
+  if ((typeof teamId !== "string" || teamId === "") && mustBeInTeam) {
     throw new Error("noTeam");
+  }
+
+  if ((typeof teamId === "string" || teamId !== "") && !mustBeInTeam) {
+    throw new Error("inTeam");
   }
 
   const team = await db.doc(`teams/${teamId}`).get();
 
   // check if captain is the user
-  if (team.get("captain") !== creator) {
+  if (team.get("captain") !== creator && captain) {
     throw new Error("notCaptain");
   }
 
@@ -38,7 +52,7 @@ export async function getUser(request: Request, captain: boolean = false) {
   };
 }
 
-export async function getErrorResponse(error: string) {
+export async function getErrorResponse(error: unknown) {
   switch (error) {
     case "noId":
       return noId;
@@ -46,6 +60,8 @@ export async function getErrorResponse(error: string) {
       return mustBeCaptain;
     case "noTeam":
       return mustBeInTeam;
+    case "inTeam":
+      return mustBeFreeAgent;
     default:
       return writeError;
   }
