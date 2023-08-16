@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 // list of errors to return if something goes wrong on the backend
 export const noId = new Response(
   JSON.stringify({
-    status: "User is not logged in or the token was not provide",
+    message: "User is not logged in or the token was not provide",
   }),
   {
     status: 400,
@@ -67,6 +67,30 @@ export const mustBeFreeAgent = new Response(
   }),
   {
     status: 401,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }
+);
+
+export const serverError = new Response(
+  JSON.stringify({
+    message: "something went wrong on the server",
+  }),
+  {
+    status: 500,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }
+);
+
+export const inviteExpired = new Response(
+  JSON.stringify({
+    message: "the invite you tried to use was expired",
+  }),
+  {
+    status: 400,
     headers: {
       "Content-Type": "application/json",
     },

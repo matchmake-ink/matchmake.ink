@@ -1,6 +1,4 @@
-import { getUid } from "@/lib/server/getUid";
 import { getUser } from "@/lib/server/getUser";
-import { noId, mustBeInTeam, mustBeCaptain } from "@/lib/server/errors";
 import { getFirestore } from "firebase-admin/firestore";
 import { genRandomInviteCode } from "@/lib/server/random";
 
