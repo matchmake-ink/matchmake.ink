@@ -88,3 +88,23 @@ export async function createInvite() {
   }
   return Promise.resolve(body.invite);
 }
+
+export async function joinTeam(invite: string) {
+  const res = await fetch("/api/invite/consume", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: (await auth.currentUser?.getIdToken(true)) || "",
+      inviteId: invite,
+    }),
+  });
+
+  if (res.status > 210) {
+    const body = await res.json();
+    return Promise.reject(body.message);
+  }
+
+  return Promise.resolve();
+}

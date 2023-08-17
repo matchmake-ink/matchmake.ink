@@ -1,9 +1,4 @@
-import {
-  badArgs,
-  inviteExpired,
-  serverError,
-  writeError,
-} from "@/lib/server/errors";
+import { badArgs, inviteExpired, writeError } from "@/lib/server/errors";
 import { getUser, getErrorResponse } from "@/lib/server/getUser";
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
 const db = getFirestore();
