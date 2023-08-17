@@ -48,7 +48,7 @@ export default function ProfileEditor({
         color="primary"
         className="max-w-xs m-auto"
         onClick={onSubmit}
-        disabled={submitting || userLoading}
+        disabled={submitting || userLoading || ign === "" || discordTag === ""}
       />
     </form>
   );

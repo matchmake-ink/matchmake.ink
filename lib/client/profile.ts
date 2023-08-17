@@ -48,6 +48,10 @@ export function useProfile() {
 export async function getProfile(userId: string): Promise<Profile> {
   const profile = await getDoc(doc(db, `profiles/${userId}`));
 
+  if (!profile.exists()) {
+    return Promise.reject();
+  }
+
   return Promise.resolve({
     discordTag: profile.data()?.discordTag ?? "",
     ign: profile.data()?.ign ?? "",
