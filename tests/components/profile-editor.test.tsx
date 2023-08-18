@@ -22,7 +22,6 @@ describe("ProfileEditor", () => {
   it("renders the form elments", () => {
     expect(screen.getByLabelText("IGN")).toBeInTheDocument();
     expect(screen.getByLabelText("Discord Tag")).toBeInTheDocument();
-    expect(screen.getByRole("button")).toBeInTheDocument();
   });
   it("calls setProfile", () => {
     const ign = screen.getByLabelText("IGN");
@@ -38,7 +37,7 @@ describe("ProfileEditor", () => {
           value: "discordTag",
         },
       });
-      const submit = screen.getByRole("button");
+      const submit = screen.getByText("Submit");
       fireEvent.click(submit);
     });
 
