@@ -1,7 +1,6 @@
 import { ERRORS, getErrorResponse } from "@/lib/server/errors";
 import { getUser } from "@/lib/server/user";
-import { getFirestore } from "firebase-admin/firestore";
-const db = getFirestore();
+import { db } from "@/lib/server/firebase";
 
 export async function POST(request: Request) {
   let uid: string;

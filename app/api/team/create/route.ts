@@ -1,10 +1,8 @@
 import { ERRORS, getErrorResponse } from "@/lib/server/errors";
 import { getUid } from "@/lib/server/user";
 import { genRandomUid } from "@/lib/server/random";
-import { getFirestore } from "firebase-admin/firestore";
 import { createTeam } from "@/lib/server/database";
-
-const db = getFirestore();
+import { db } from "@/lib/server/firebase";
 
 // can't write tests for this because firebase is a pain
 // I mean I could but it's really just not worth the effort

@@ -1,5 +1,5 @@
-import { getFirestore, FieldValue } from "firebase-admin/firestore";
-const db = getFirestore();
+import { FieldValue } from "firebase-admin/firestore";
+import { db } from "./firebase";
 
 export async function createTeam(
   uid: string,

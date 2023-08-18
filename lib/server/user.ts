@@ -1,9 +1,8 @@
-import { getFirestore } from "firebase-admin/firestore";
 import { getAuth } from "firebase-admin/auth";
+import { db } from "./firebase";
 import initApp from "@/lib/server/admin";
-initApp();
 
-const db = getFirestore();
+initApp();
 
 /**
  * Returns a snapshot of the user's profile and their team

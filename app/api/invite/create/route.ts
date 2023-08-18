@@ -1,9 +1,7 @@
 import { getUser } from "@/lib/server/user";
 import { getErrorResponse } from "@/lib/server/errors";
-import { getFirestore } from "firebase-admin/firestore";
 import { genRandomInviteCode } from "@/lib/server/random";
-
-const db = getFirestore();
+import { db } from "@/lib/server/firebase";
 
 export async function POST(request: Request) {
   const body = await request.clone().json();
