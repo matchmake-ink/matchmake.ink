@@ -2,33 +2,46 @@ import Button from "./button";
 import Input from "./input";
 import { useCallback, useState } from "react";
 import { createTeam } from "@/lib/client/team";
+import Modal from "./modal";
 
 interface CreateTeamProps {
   onFinishedSubmitting?: () => void;
 }
 
-export default function CreateTeam({
-  onFinishedSubmitting = () => {},
-}: CreateTeamProps) {
+export default function CreateTeam() {
   const [teamName, setTeamName] = useState("");
+  const [open, setOpen] = useState(false);
   const submit = useCallback(async () => {
     if (teamName === "") {
       return;
     }
 
-    onFinishedSubmitting();
     createTeam(teamName);
-  }, [teamName, onFinishedSubmitting]);
+  }, [teamName]);
 
   return (
-    <form>
-      <Input
-        label="Team Name"
-        type="text"
-        value={teamName}
-        onChange={(value: string) => setTeamName(value)}
+    <>
+      <Button
+        label="Create Team"
+        color="accent"
+        onClick={() => setOpen(true)}
       />
-      <Button label="Submit" color="accent" onClick={submit} />
-    </form>
+      <Modal open={open} onClose={() => setOpen(false)} title="Create a Team">
+        <form>
+          <Input
+            label="Team Name"
+            type="text"
+            value={teamName}
+            onChange={(value: string) => setTeamName(value)}
+          />
+          <Button
+            label="Submit"
+            color="accent"
+            disabled={teamName === ""}
+            onClick={submit}
+          />
+        </form>
+      </Modal>
+    </>
   );
 }

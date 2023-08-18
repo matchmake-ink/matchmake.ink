@@ -1,15 +1,11 @@
 "use client";
 import { useTeam } from "@/lib/client/team";
-import { useState } from "react";
 import ProfileCard from "@/components/profile-card";
 import Input from "@/components/input";
-import Button from "@/components/button";
-import Modal from "@/components/modal";
 import CreateTeam from "@/components/create-team";
 
 export default function Home() {
   const { team, teamLoading, teamError } = useTeam();
-  const [open, setOpen] = useState(false);
 
   return (
     <main>
@@ -26,10 +22,7 @@ export default function Home() {
         value="Test"
         onChange={(value) => console.log(value)}
       />
-      <Button label="Test" color="accent" onClick={() => setOpen(true)} />
-      <Modal open={open} onClose={() => setOpen(false)} title="Create a Team">
-        <CreateTeam onFinishedSubmitting={() => setOpen(false)} />
-      </Modal>
+      <CreateTeam />
       <div>
         <h1>Team</h1>
         {teamLoading && <p>Loading...</p>}

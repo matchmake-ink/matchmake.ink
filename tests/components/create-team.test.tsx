@@ -1,6 +1,6 @@
 import CreateTeam from "@/components/create-team";
 import { vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import { createTeam } from "@/lib/client/team";
 
 describe("CreateTeam", () => {
@@ -10,14 +10,10 @@ describe("CreateTeam", () => {
     }));
   });
   it("calls createTeam when submitted", () => {
-    const onFinishedSubmitting = vi.fn();
-    const { getByRole } = render(
-      <CreateTeam onFinishedSubmitting={onFinishedSubmitting} />
-    );
+    const { getByRole, getByText } = render(<CreateTeam />);
     fireEvent.change(getByRole("textbox"), { target: { value: "Test" } });
-    fireEvent.click(getByRole("button"));
+    fireEvent.click(getByText("Submit"));
 
-    expect(onFinishedSubmitting).toHaveBeenCalled();
     expect(createTeam).toHaveBeenCalledWith("Test");
   });
 });
