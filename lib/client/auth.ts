@@ -56,10 +56,6 @@ export function useUser() {
   return { user: user, userLoading: loading, userError: error };
 }
 
-export async function getCurrentUser() {
-  return auth.currentUser;
-}
-
 export async function signOut(): Promise<void> {
   await auth.signOut();
 }
