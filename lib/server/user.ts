@@ -1,8 +1,5 @@
-import { getAuth } from "firebase-admin/auth";
-import { db } from "./firebase";
-import initApp from "@/lib/server/admin";
-
-initApp();
+import { ERRORS } from "./errors";
+import { db, auth } from "./firebase";
 
 /**
  * Returns a snapshot of the user's profile and their team
@@ -17,25 +14,25 @@ export async function getUser(
   const creator = await getUid(body);
 
   if (creator === "") {
-    throw new Error("noId");
+    throw ERRORS.NO_ID;
   }
 
   const profile = await db.doc(`profiles/${creator}`).get();
   const teamId = profile.get("teamId");
 
   if ((typeof teamId !== "string" || teamId === "") && mustBeInTeam) {
-    throw new Error("noTeam");
+    throw ERRORS.MUST_BE_IN_TEAM;
   }
 
   if ((typeof teamId === "string" || teamId !== "") && !mustBeInTeam) {
-    throw new Error("inTeam");
+    throw ERRORS.MUST_BE_FREE_AGENT;
   }
 
   const team = await db.doc(`teams/${teamId}`).get();
 
   // check if captain is the user
   if (team.get("captain") !== creator && captain) {
-    throw new Error("notCaptain");
+    throw ERRORS.MUST_BE_CAPTAIN;
   }
 
   return {
@@ -46,8 +43,6 @@ export async function getUser(
   };
 }
 
-const auth = getAuth();
-
 export async function getUid(body: any): Promise<string> {
   let uid = "";
 
@@ -56,8 +51,6 @@ export async function getUid(body: any): Promise<string> {
   if (token === undefined) {
     return Promise.resolve("");
   }
-
-  console.log(auth);
 
   await auth.verifyIdToken(token).then((decodedToken) => {
     uid = decodedToken.uid;

@@ -1,4 +1,5 @@
 import { FieldValue } from "firebase-admin/firestore";
+import { ERRORS } from "./errors";
 import { db } from "./firebase";
 
 export async function createTeam(
@@ -21,7 +22,7 @@ export async function createTeam(
     });
 
   if (!createSuccess) {
-    throw new Error("writeError");
+    throw ERRORS.WRITE_ERROR;
   }
 
   await setProfileIdAsTeam(uid, teamUid);
@@ -43,7 +44,7 @@ async function setProfileIdAsTeam(uid: string, teamUid: string) {
     });
 
   if (!addSuccess) {
-    throw new Error("writeError");
+    throw ERRORS.WRITE_ERROR;
   }
 }
 
@@ -61,6 +62,6 @@ export async function joinTeam(uid: string, teamUid: string) {
     });
 
   if (!joinSuccess) {
-    throw new Error("writeErrror");
+    throw ERRORS.WRITE_ERROR;
   }
 }

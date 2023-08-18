@@ -102,7 +102,7 @@ export async function joinTeam(invite: string) {
   });
 
   if (res.status > 210) {
-    const body = await res.json();
+    const body = await res.clone().json();
     return Promise.reject(body.message);
   }
 

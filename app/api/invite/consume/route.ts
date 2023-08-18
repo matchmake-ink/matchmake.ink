@@ -9,12 +9,12 @@ export async function POST(request: Request) {
   const body = await request.clone().json();
 
   try {
-    const user = await getUser(request, false, true);
+    const user = await getUser(body, false, true);
     uid = user.uid;
 
     const { inviteId } = body;
     if (inviteId === undefined) {
-      throw new Error(ERRORS.BAD_ARGS);
+      throw ERRORS.BAD_ARGS;
     }
 
     const inviteRef = db.doc(`invites/${inviteId}`);
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     const expires = invite.get("expires");
 
     if (expires === undefined || expires < Date.now()) {
-      throw new Error(ERRORS.INVITE_EXPIRED);
+      throw ERRORS.INVITE_EXPIRED;
     }
 
     await inviteRef.delete();

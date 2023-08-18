@@ -12,6 +12,7 @@ export enum ERRORS {
 }
 
 export async function getErrorResponse(error: unknown) {
+  const parsedError = error as Error;
   return errors.get(error as string) ?? errors.get("serverError");
 }
 
@@ -99,6 +100,7 @@ errors.set(
     }),
     {
       status: 401,
+      statusText: "Unauthorized",
       headers: {
         "Content-Type": "application/json",
       },
@@ -114,6 +116,7 @@ errors.set(
     }),
     {
       status: 500,
+      statusText: "Something went wrong on the server",
       headers: {
         "Content-Type": "application/json",
       },

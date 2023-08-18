@@ -16,11 +16,11 @@ export async function POST(request: Request) {
     if (
       !(profile.data()?.teamId === "" || profile.data()?.teamId === undefined)
     ) {
-      throw new Error(ERRORS.MUST_BE_FREE_AGENT);
+      throw ERRORS.MUST_BE_FREE_AGENT;
     }
 
     if (body.name === undefined) {
-      throw new Error(ERRORS.BAD_ARGS);
+      throw ERRORS.BAD_ARGS;
     }
 
     const teamUid = genRandomUid();
@@ -36,5 +36,6 @@ export async function POST(request: Request) {
       "Content-Type": "application/json",
     },
     status: 200,
+    statusText: "OK",
   });
 }
