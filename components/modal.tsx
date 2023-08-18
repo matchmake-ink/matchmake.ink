@@ -1,4 +1,6 @@
+"use client";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { useEffect } from "react";
 
 export interface ModalProps {
   children: React.ReactNode;
@@ -12,6 +14,23 @@ export default function Modal({
   title = "",
   onClose = () => {},
 }: ModalProps) {
+  useEffect(() => {
+    const keyDownHandler = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+
+        if (open) {
+          onClose();
+        }
+      }
+    };
+    document.addEventListener("keydown", keyDownHandler);
+
+    return () => {
+      document.removeEventListener("keydown", keyDownHandler);
+    };
+  }, [open, onClose]);
+
   return (
     <>
       <div
