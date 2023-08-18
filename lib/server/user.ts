@@ -1,12 +1,7 @@
-import {
-  mustBeCaptain,
-  mustBeInTeam,
-  noId,
-  writeError,
-  mustBeFreeAgent,
-} from "./errors";
-import { getUid } from "./getUid";
 import { getFirestore } from "firebase-admin/firestore";
+import { getAuth } from "firebase-admin/auth";
+import initApp from "@/lib/server/admin";
+initApp();
 
 const db = getFirestore();
 
@@ -16,11 +11,11 @@ const db = getFirestore();
  * @param captain - Whether the user has to be the captain or not
  */
 export async function getUser(
-  request: Request,
+  body: any,
   captain: boolean = false,
   mustBeInTeam: boolean = true
 ) {
-  const creator = await getUid(request);
+  const creator = await getUid(body);
 
   if (creator === "") {
     throw new Error("noId");
@@ -45,24 +40,29 @@ export async function getUser(
   }
 
   return {
-    uId: creator,
+    uid: creator,
     teamId: teamId,
     profile: profile,
     team: team,
   };
 }
 
-export async function getErrorResponse(error: unknown) {
-  switch (error) {
-    case "noId":
-      return noId;
-    case "notCaptain":
-      return mustBeCaptain;
-    case "noTeam":
-      return mustBeInTeam;
-    case "inTeam":
-      return mustBeFreeAgent;
-    default:
-      return writeError;
+const auth = getAuth();
+
+export async function getUid(body: any): Promise<string> {
+  let uid = "";
+
+  const token: string = body.token;
+
+  if (token === undefined) {
+    return Promise.resolve("");
   }
+
+  console.log(auth);
+
+  await auth.verifyIdToken(token).then((decodedToken) => {
+    uid = decodedToken.uid;
+  });
+
+  return Promise.resolve(uid);
 }
