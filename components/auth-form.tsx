@@ -55,7 +55,7 @@ export default function AuthForm() {
             />
           </>
         )}
-        <Button color="primary" onClick={onSubmit} label="Submit" />
+        <Button onClick={onSubmit} label="Submit" />
       </div>
 
       <button

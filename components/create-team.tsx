@@ -23,7 +23,7 @@ export default function CreateTeam() {
     <>
       <Button
         label="Create Team"
-        color="accent"
+        color="primary"
         onClick={() => setOpen(true)}
       />
       <Modal open={open} onClose={() => setOpen(false)} title="Create a Team">
@@ -34,12 +34,7 @@ export default function CreateTeam() {
             value={teamName}
             onChange={(value: string) => setTeamName(value)}
           />
-          <Button
-            label="Submit"
-            color="accent"
-            disabled={teamName === ""}
-            onClick={submit}
-          />
+          <Button label="Submit" disabled={teamName === ""} onClick={submit} />
         </form>
       </Modal>
     </>
