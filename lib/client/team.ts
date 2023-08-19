@@ -10,9 +10,13 @@ export interface Team {
   id: string;
   name: string;
   members: string[];
+  avatar: string;
 }
 
-export async function createTeam(teamName: string): Promise<void> {
+export async function createTeam(
+  teamName: string,
+  teamEmail: string
+): Promise<void> {
   const res = await fetch("/api/team/create", {
     method: "POST",
     headers: {
@@ -21,6 +25,7 @@ export async function createTeam(teamName: string): Promise<void> {
     body: JSON.stringify({
       token: (await auth.currentUser?.getIdToken(true)) || "",
       name: teamName,
+      email: teamEmail,
     }),
   });
   console.log(res);
@@ -54,9 +59,10 @@ export function useTeam() {
   }
 
   const team: Team = {
-    id: value?.data()?.id,
-    name: value?.data()?.name,
-    members: value?.data()?.members,
+    id: value?.data()?.id || "",
+    name: value?.data()?.name || "",
+    members: value?.data()?.members || [],
+    avatar: value?.data()?.avatar || "",
   };
 
   return {

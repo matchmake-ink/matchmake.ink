@@ -6,6 +6,7 @@ import { auth } from "@/lib/client/firebase";
 export interface Profile {
   discordTag: string;
   ign: string;
+  avatar: string;
   teamId: string;
 }
 
@@ -40,6 +41,7 @@ export function useProfile() {
     discordTag: value?.data()?.discordTag ?? "",
     ign: value?.data()?.ign ?? "",
     teamId: value?.data()?.teamId ?? "",
+    avatar: value?.data()?.avatar ?? "",
   };
 
   return { profile: profile, profileLoading: loading, profileError: error };
@@ -56,5 +58,6 @@ export async function getProfile(userId: string): Promise<Profile> {
     discordTag: profile.data()?.discordTag ?? "",
     ign: profile.data()?.ign ?? "",
     teamId: profile.data()?.teamId ?? "",
+    avatar: profile.data()?.avatar ?? "",
   });
 }

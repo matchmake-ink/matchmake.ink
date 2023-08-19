@@ -1,6 +1,7 @@
 import { ERRORS, getErrorResponse } from "@/lib/server/errors";
 import { getUid } from "@/lib/server/user";
 import { genRandomUid } from "@/lib/server/random";
+import { getGravatarUrl } from "@/lib/client/gravatar";
 import { createTeam } from "@/lib/server/database";
 import { db } from "@/lib/server/firebase";
 
@@ -19,14 +20,15 @@ export async function POST(request: Request) {
       throw ERRORS.MUST_BE_FREE_AGENT;
     }
 
-    if (body.name === undefined) {
+    if (body.name === undefined || body.email === undefined) {
       throw ERRORS.BAD_ARGS;
     }
 
     const teamUid = genRandomUid();
     const teamName: string = body.name;
+    const teamEmail: string = body.email;
 
-    createTeam(uid, teamName, teamUid);
+    createTeam(uid, teamName, teamUid, getGravatarUrl(teamEmail));
   } catch (error: unknown) {
     return await getErrorResponse(error);
   }

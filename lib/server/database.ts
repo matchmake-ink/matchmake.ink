@@ -5,7 +5,8 @@ import { db } from "./firebase";
 export async function createTeam(
   uid: string,
   teamName: string,
-  teamUid: string
+  teamUid: string,
+  avatar: string
 ) {
   const createSuccess = await db
     .doc(`teams/${teamUid}`)
@@ -13,6 +14,7 @@ export async function createTeam(
       name: teamName,
       members: [uid],
       captain: uid,
+      avatar: avatar,
     })
     .then(() => {
       return true;
