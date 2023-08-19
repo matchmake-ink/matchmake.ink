@@ -1,16 +1,23 @@
 "use client";
 import { useTeam } from "@/lib/client/team";
+import { useUser } from "@/lib/client/auth";
+import { getGravatarUrl } from "@/lib/client/gravatar";
 import ProfileCard from "@/components/profile-card";
 import Input from "@/components/input";
 import CreateTeam from "@/components/create-team";
 
 export default function Home() {
   const { team, teamLoading, teamError } = useTeam();
+  const { user } = useUser();
 
   return (
     <main>
       <ProfileCard
-        avatarUrl="/images/user_placeholder.png"
+        avatarUrl={
+          user === null || user.email === null
+            ? "/images/user_placeholder.png"
+            : getGravatarUrl(user.email)
+        }
         ign="1234567890"
         discordTag="@firesquid6"
         teamName="Bread Gang"

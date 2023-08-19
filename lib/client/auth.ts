@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   UserCredential,
 } from "firebase/auth";
+import { getGravatarUrl } from "./gravatar";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 export async function signUp(
@@ -24,6 +25,7 @@ export async function signUp(
       ign: ign,
       discordTag: discordTag,
       teamId: "",
+      avatar: getGravatarUrl(email),
     });
   } catch (e) {
     error = e;

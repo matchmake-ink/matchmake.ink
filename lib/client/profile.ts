@@ -1,4 +1,5 @@
 import { doc, setDoc, getDoc } from "firebase/firestore";
+import { getGravatarUrl } from "./gravatar";
 import { db } from "@/lib/client/firebase";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { auth } from "@/lib/client/firebase";
@@ -6,6 +7,7 @@ import { auth } from "@/lib/client/firebase";
 export interface Profile {
   discordTag: string;
   ign: string;
+  avatarUrl: string;
   teamId: string;
 }
 
@@ -40,6 +42,7 @@ export function useProfile() {
     discordTag: value?.data()?.discordTag ?? "",
     ign: value?.data()?.ign ?? "",
     teamId: value?.data()?.teamId ?? "",
+    avatarUrl: value?.data()?.avatar ?? "",
   };
 
   return { profile: profile, profileLoading: loading, profileError: error };
@@ -56,5 +59,6 @@ export async function getProfile(userId: string): Promise<Profile> {
     discordTag: profile.data()?.discordTag ?? "",
     ign: profile.data()?.ign ?? "",
     teamId: profile.data()?.teamId ?? "",
+    avatarUrl: profile.data()?.avatar ?? "",
   });
 }
