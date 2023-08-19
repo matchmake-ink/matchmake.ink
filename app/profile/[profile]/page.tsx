@@ -22,7 +22,7 @@ export default function Profile({ params }: { params: { profile: string } }) {
   const profileUi =
     profile !== null ? (
       <ProfileCard
-        avatarUrl={profile.avatarUrl ?? "/images/user_placeholder.png"}
+        avatarUrl={profile.avatar ?? "/images/user_placeholder.png"}
         ign={profile.ign}
         discordTag={profile.discordTag}
         teamName="Bread Gang"
