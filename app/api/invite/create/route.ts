@@ -7,7 +7,7 @@ export async function POST(request: Request) {
   const body = await request.clone().json();
   let inviteId: string;
   try {
-    const { teamId } = await getUser(body);
+    const { teamId } = await getUser(body, false, true);
 
     inviteId = genRandomInviteCode();
 
