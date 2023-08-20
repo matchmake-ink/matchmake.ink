@@ -4,7 +4,7 @@ import { useUser } from "@/lib/client/auth";
 import { getGravatarUrl } from "@/lib/client/gravatar";
 import ProfileCard from "@/components/profile-card";
 import Input from "@/components/input";
-import CreateTeam from "@/components/create-team";
+import { CreateTeam, UpdateTeam } from "@/components/team";
 
 export default function Home() {
   const { team, teamLoading, teamError } = useTeam();
@@ -30,6 +30,7 @@ export default function Home() {
         onChange={(value) => console.log(value)}
       />
       <CreateTeam />
+      <UpdateTeam />
       <div>
         <h1>Team</h1>
         {teamLoading && <p>Loading...</p>}

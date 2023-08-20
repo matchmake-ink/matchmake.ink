@@ -23,4 +23,18 @@ export async function POST(request: Request) {
   } catch (error: unknown) {
     return await getErrorResponse(error);
   }
+
+  //return
+  return new Response(
+    JSON.stringify({
+      result: "success",
+    }),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      status: 200,
+      statusText: "team updated successfully",
+    }
+  );
 }

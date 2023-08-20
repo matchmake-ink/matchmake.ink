@@ -1,4 +1,4 @@
-import CreateTeam from "@/components/create-team";
+import { CreateTeam } from "@/components/team";
 import { vi } from "vitest";
 import { render, fireEvent } from "@testing-library/react";
 import { createTeam } from "@/lib/client/team";
