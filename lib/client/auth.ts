@@ -6,7 +6,8 @@ import {
   UserCredential,
 } from "firebase/auth";
 import { getGravatarUrl } from "./gravatar";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { StateContext } from "./context";
+import { useContext } from "react";
 
 export async function signUp(
   email: string,
@@ -51,11 +52,13 @@ export async function signIn(
 }
 
 export function useUser() {
-  let [user, loading, error] = useAuthState(auth);
-  if (user === undefined) {
-    user = null;
-  }
-  return { user: user, userLoading: loading, userError: error };
+  const { user, loading, errors } = useContext(StateContext);
+
+  return {
+    user: user === undefined ? null : user,
+    userLoading: loading,
+    userError: errors[0],
+  };
 }
 
 export async function signOut(): Promise<void> {

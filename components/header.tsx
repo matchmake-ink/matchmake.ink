@@ -20,7 +20,6 @@ export default function Header() {
           Settings
         </a>
       </nav>
-      <AuthButton />
     </header>
   );
 }

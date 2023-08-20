@@ -2,6 +2,8 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/client/firebase";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { auth } from "@/lib/client/firebase";
+import { StateContext } from "./context";
+import { useContext } from "react";
 
 export interface Profile {
   discordTag: string;
@@ -25,26 +27,9 @@ export async function setProfile(
  * returns the currently logged in user's profile, whether it's loading, and if there's an error.
  */
 export function useProfile() {
-  const [value, loading, error] = useDocument(
-    doc(db, `profiles/${auth.currentUser?.uid}`)
-  );
+  const { profile, loading, errors } = useContext(StateContext);
 
-  if (auth.currentUser?.uid === undefined) {
-    return {
-      profile: undefined,
-      profileLoading: false,
-      profileError: undefined,
-    };
-  }
-
-  const profile: Profile = {
-    discordTag: value?.data()?.discordTag ?? "",
-    ign: value?.data()?.ign ?? "",
-    teamId: value?.data()?.teamId ?? "",
-    avatar: value?.data()?.avatar ?? "",
-  };
-
-  return { profile: profile, profileLoading: loading, profileError: error };
+  return { profile: profile, profileLoading: loading, profileError: errors[1] };
 }
 
 export async function getProfile(userId: string): Promise<Profile> {
