@@ -1,8 +1,6 @@
 import { auth } from "@/lib/client/firebase";
-import { doc } from "firebase/firestore";
-import { db } from "@/lib/client/firebase";
-import { useProfile } from "./profile";
-import { useDocument } from "react-firebase-hooks/firestore";
+import { useContext } from "react";
+import { StateContext } from "./context";
 
 // note - this file does not have unit tests because it simply wraps api calls
 
@@ -62,31 +60,9 @@ export async function createTeam(
 }
 
 export function useTeam() {
-  const { profile, profileLoading, profileError } = useProfile();
-  const [value, loading, error] = useDocument(
-    doc(db, `teams/${profile?.teamId || "freeAgent"}`)
-  );
+  const { team, loading, errors } = useContext(StateContext);
 
-  if (profile === undefined && !profileLoading) {
-    return {
-      team: undefined,
-      teamLoading: false,
-      teamError: profileError,
-    };
-  }
-
-  const team: Team = {
-    id: value?.data()?.id || "",
-    name: value?.data()?.name || "",
-    members: value?.data()?.members || [],
-    avatar: value?.data()?.avatar || "",
-  };
-
-  return {
-    team,
-    teamLoading: loading,
-    teamError: error,
-  };
+  return { team: team, teamLoading: loading, teamError: errors[2] };
 }
 
 export async function createInvite() {
