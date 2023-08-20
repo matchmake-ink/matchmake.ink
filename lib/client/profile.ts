@@ -1,4 +1,4 @@
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/client/firebase";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { auth } from "@/lib/client/firebase";
@@ -15,7 +15,7 @@ export async function setProfile(
   ign: string,
   discordTag: string
 ): Promise<void> {
-  await setDoc(doc(db, "profiles", userId), {
+  await updateDoc(doc(db, "profiles", userId), {
     ign: ign,
     discordTag: discordTag,
   });
