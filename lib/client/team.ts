@@ -13,6 +13,23 @@ export interface Team {
   avatar: string;
 }
 
+export async function updateTeam(
+  teamName: string,
+  teamEmail: string
+): Promise<void> {
+  const res = await fetch("/api/team/update", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: (await auth.currentUser?.getIdToken(true)) || "",
+      name: teamName,
+      email: teamEmail,
+    }),
+  });
+}
+
 export async function createTeam(
   teamName: string,
   teamEmail: string

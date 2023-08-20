@@ -9,7 +9,7 @@ import { db, auth } from "./firebase";
 export async function getUser(
   body: any,
   captain: boolean = false,
-  mustBeInTeam: boolean = true
+  mustBeInTeam: boolean = false
 ) {
   const creator = await getUid(body);
 
