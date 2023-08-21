@@ -5,6 +5,8 @@ import { setProfile } from "@/lib/client/profile";
 import Input from "./input";
 import Modal from "./modal";
 import Button from "./button";
+import Select from "./select";
+import LongInput from "./long-input";
 
 export interface ProfileEditorProps {
   onFinishedSubmitting?: () => void;
@@ -15,6 +17,10 @@ export default function ProfileEditor({
 }: ProfileEditorProps) {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const { user, userLoading, userError } = useUser();
+  const [bio, setBio] = useState<string>("");
+  const [sendou, setSendou] = useState<string>("");
+  const [region, setRegion] = useState<string>("");
+  const [rank, setRank] = useState<string>("");
   const [ign, setIgn] = useState<string>("");
   const [discordTag, setdiscordTag] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
@@ -25,7 +31,7 @@ export default function ProfileEditor({
     }
     setSubmitting(true);
 
-    await setProfile(user.uid, ign, discordTag);
+    await setProfile(user.uid, ign, discordTag, bio, sendou, rank, region);
 
     setSubmitting(false);
     onFinishedSubmitting();
@@ -51,6 +57,44 @@ export default function ProfileEditor({
             type="text"
             value={discordTag}
             onChange={(value) => setdiscordTag(value)}
+          />
+          <Input
+            label="Sendou Page"
+            type="text"
+            value={sendou}
+            onChange={(value) => setSendou(value)}
+          />
+          <div className="flex flex-row">
+            <Select
+              label="Region"
+              defalutValue={region}
+              onChange={(value) => setRegion(value)}
+              options={["North America", "Europe", "Japan", "Oceania"]}
+            />
+            <Select
+              label="Rank"
+              defalutValue={rank}
+              onChange={(value) => setRank(value)}
+              options={[
+                "C-",
+                "C",
+                "C+",
+                "B-",
+                "B",
+                "B+",
+                "A-",
+                "A",
+                "A+",
+                "S",
+                "S+",
+              ]}
+            />
+          </div>
+
+          <LongInput
+            label="Bio"
+            value={bio}
+            onChange={(value) => setBio(value)}
           />
           <Button
             label="Submit"

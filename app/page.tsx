@@ -24,12 +24,6 @@ export default function Home() {
         teamName="Bread Gang"
         teamAvatar="/images/team_placeholder.png"
       />
-      <Input
-        label="Test"
-        type="text"
-        value="Test"
-        onChange={(value) => console.log(value)}
-      />
       <CreateTeam />
       <UpdateTeam />
       <div>
@@ -44,12 +38,6 @@ export default function Home() {
           </div>
         )}
       </div>
-      <Select
-        label="Test"
-        defalutValue="Test"
-        onChange={(value) => console.log(value)}
-        options={["Test", "Test2", "test3", "test4"]}
-      />
     </main>
   );
 }

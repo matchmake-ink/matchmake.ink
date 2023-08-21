@@ -10,16 +10,28 @@ export interface Profile {
   ign: string;
   avatar: string;
   teamId: string;
+  bio?: string;
+  sendou?: string;
+  rank?: string;
+  region?: string;
 }
 
 export async function setProfile(
   userId: string,
   ign: string,
-  discordTag: string
+  discordTag: string,
+  bio: string,
+  sendou: string,
+  rank: string,
+  region: string
 ): Promise<void> {
   await updateDoc(doc(db, "profiles", userId), {
     ign: ign,
     discordTag: discordTag,
+    bio: bio,
+    sendou: sendou,
+    rank: rank,
+    region: region,
   });
 }
 
@@ -44,5 +56,9 @@ export async function getProfile(userId: string): Promise<Profile> {
     ign: profile.data()?.ign ?? "",
     teamId: profile.data()?.teamId ?? "",
     avatar: profile.data()?.avatar ?? "",
+    bio: profile.data()?.bio ?? "",
+    sendou: profile.data()?.sendou ?? "",
+    rank: profile.data()?.rank ?? "",
+    region: profile.data()?.region ?? "",
   });
 }

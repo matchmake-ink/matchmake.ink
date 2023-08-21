@@ -11,7 +11,7 @@ export default function LongInput({
   value,
   onChange,
   placeholder = "",
-  maxLength = 50,
+  maxLength = 300,
 }: LongInputProps) {
   return (
     <div className="flex flex-col bg-secondary-600 p-2 m-2 border-text border rounded-lg">

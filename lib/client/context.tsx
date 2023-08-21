@@ -39,6 +39,10 @@ export function StateContextProvider({
     ign: profileValue?.data()?.ign ?? "",
     teamId: profileValue?.data()?.teamId ?? "",
     avatar: profileValue?.data()?.avatar ?? "",
+    bio: profileValue?.data()?.bio ?? "",
+    region: profileValue?.data()?.region ?? "",
+    rank: profileValue?.data()?.rank ?? "",
+    sendou: profileValue?.data()?.sendou ?? "",
   };
 
   const [teamValue, teamLoading, teamError] = useDocument(

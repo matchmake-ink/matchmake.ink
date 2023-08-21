@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
-import { BsDiscord } from "react-icons/bs";
+import { BsDiscord, BsGlobe, BsTrophyFill } from "react-icons/bs";
+import { GiSquidHead } from "react-icons/gi";
 
 export interface ProfileCardProps {
   avatarUrl: string;
@@ -8,13 +9,21 @@ export interface ProfileCardProps {
   discordTag?: string;
   teamName?: string;
   teamAvatar?: string;
+  bio?: string;
+  sendou?: string;
+  rank?: string;
+  region?: string;
 }
 export default function ProfileCard({
   avatarUrl,
   ign,
   discordTag = "",
+  bio = "",
   teamName = "",
   teamAvatar = "",
+  sendou = "",
+  rank = "",
+  region = "",
 }: ProfileCardProps) {
   return (
     <div className="max-w-sm bg-secondary-600 rounded-xl">
@@ -30,11 +39,32 @@ export default function ProfileCard({
         <h1 className="my-auto mx-4">{ign}</h1>
         <span className="w-full"></span>
       </div>
+      <p className="m-4">{bio}</p>
       <ul className="m-4">
-        <li>
-          <BsDiscord size={24} /> <span className="w-4"></span>
-          {discordTag}
-        </li>
+        {region && (
+          <li>
+            <BsGlobe size={24} /> <span className="w-4"></span>
+            {region}
+          </li>
+        )}
+        {discordTag && (
+          <li>
+            <BsDiscord size={24} /> <span className="w-4"></span>
+            {discordTag}
+          </li>
+        )}
+        {sendou && (
+          <li>
+            <GiSquidHead size={24} /> <span className="w-4"></span>
+            {sendou}
+          </li>
+        )}
+        {rank && (
+          <li>
+            <BsTrophyFill size={24} /> <span className="w-4"></span>
+            {rank}
+          </li>
+        )}
       </ul>
       <div className="flex flex-col mt-4 bg-secondary-400 py-4 rounded-xl">
         <Image
