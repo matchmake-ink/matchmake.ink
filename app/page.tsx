@@ -5,6 +5,7 @@ import { getGravatarUrl } from "@/lib/client/gravatar";
 import ProfileCard from "@/components/profile-card";
 import Input from "@/components/input";
 import { CreateTeam, UpdateTeam } from "@/components/team";
+import LongInput from "@/components/long-input";
 
 export default function Home() {
   const { team, teamLoading, teamError } = useTeam();
@@ -43,6 +44,11 @@ export default function Home() {
           </div>
         )}
       </div>
+      <LongInput
+        label="Test"
+        value="Test"
+        onChange={(value) => console.log(value)}
+      />
     </main>
   );
 }

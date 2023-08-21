@@ -1,30 +1,26 @@
-"use client";
-export interface InputProps {
+export interface LongInputProps {
   label: string;
-  type: string;
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
   maxLength?: number;
 }
 
-export default function Input({
+export default function LongInput({
   label,
-  type,
   value,
   onChange,
   placeholder = "",
   maxLength = 50,
-}: InputProps) {
+}: LongInputProps) {
   return (
     <div className="flex flex-col bg-secondary-600 p-2 m-2 border-text border rounded-lg">
       <label className="text-text text-lg font-bold mb-2" htmlFor={label}>
         {label}
       </label>
-      <input
+      <textarea
         className="border border-text rounded-md p-1 focus:outline-none focus:bg-secondary-800 bg-secondary-700"
         id={label}
-        type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
