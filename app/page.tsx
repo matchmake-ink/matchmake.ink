@@ -5,7 +5,7 @@ import { getGravatarUrl } from "@/lib/client/gravatar";
 import ProfileCard from "@/components/profile-card";
 import Input from "@/components/input";
 import { CreateTeam, UpdateTeam } from "@/components/team";
-import LongInput from "@/components/long-input";
+import Select from "@/components/select";
 
 export default function Home() {
   const { team, teamLoading, teamError } = useTeam();
@@ -44,10 +44,11 @@ export default function Home() {
           </div>
         )}
       </div>
-      <LongInput
+      <Select
         label="Test"
-        value="Test"
+        defalutValue="Test"
         onChange={(value) => console.log(value)}
+        options={["Test", "Test2", "test3", "test4"]}
       />
     </main>
   );
