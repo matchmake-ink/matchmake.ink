@@ -8,6 +8,8 @@ export async function createTeam(
   teamUid: string,
   avatar: string
 ) {
+  if (db === undefined) throw ERRORS.MOCKING_BACKEND;
+
   const createSuccess = await db
     .doc(`teams/${teamUid}`)
     .set({
@@ -33,6 +35,8 @@ export async function createTeam(
 }
 
 async function setProfileIdAsTeam(uid: string, teamUid: string) {
+  if (db === undefined) throw ERRORS.MOCKING_BACKEND;
+
   const addSuccess = await db
     .doc(`profiles/${uid}`)
     .update({
@@ -51,6 +55,8 @@ async function setProfileIdAsTeam(uid: string, teamUid: string) {
 }
 
 export async function joinTeam(uid: string, teamUid: string) {
+  if (db === undefined) throw ERRORS.MOCKING_BACKEND;
+
   const joinSuccess = await db
     .doc(`teams/${teamUid}`)
     .update({

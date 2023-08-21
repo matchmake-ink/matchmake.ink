@@ -9,6 +9,7 @@ export enum ERRORS {
   MUST_BE_FREE_AGENT = "mustBeFreeAgent",
   SERVER_ERROR = "serverError",
   INVITE_EXPIRED = "inviteExpired",
+  MOCKING_BACKEND = "mockingBackend",
 }
 
 export async function getErrorResponse(error: unknown) {
@@ -25,6 +26,7 @@ errors.set(
     }),
     {
       status: 400,
+      statusText: "User is not logged in or the token was not provide",
       headers: {
         "Content-Type": "application/json",
       },
@@ -40,6 +42,7 @@ errors.set(
     }),
     {
       status: 400,
+      statusText: "Improper arguments were provided",
       headers: {
         "Content-Type": "application/json",
       },
@@ -55,6 +58,7 @@ errors.set(
     }),
     {
       status: 500,
+      statusText: "Error writing to database",
       headers: {
         "Content-Type": "application/json",
       },
@@ -70,6 +74,7 @@ errors.set(
     }),
     {
       status: 401,
+      statusText: "User must be in a team",
       headers: {
         "Content-Type": "application/json",
       },
@@ -85,6 +90,7 @@ errors.set(
     }),
     {
       status: 401,
+      statusText: "User must be captain",
       headers: {
         "Content-Type": "application/json",
       },
@@ -100,7 +106,7 @@ errors.set(
     }),
     {
       status: 401,
-      statusText: "Unauthorized",
+      statusText: "User must not be in a team",
       headers: {
         "Content-Type": "application/json",
       },
@@ -132,6 +138,25 @@ errors.set(
     }),
     {
       status: 400,
+      statusText: "The invite you tried to use was expired",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+);
+
+errors.set(
+  ERRORS.MOCKING_BACKEND,
+  new Response(
+    JSON.stringify({
+      result: "success",
+      invite: "12345678",
+    }),
+    {
+      status: 200,
+      statusText:
+        "The backend is being mocked and your request didn't actually do anyting. If you're a user and seeing this, or if you're a developer working on the backend, this is a problem and you should contact the developer. Otherwise, you can ignore this.",
       headers: {
         "Content-Type": "application/json",
       },

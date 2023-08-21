@@ -11,6 +11,7 @@ export async function getUser(
   captain: boolean = false,
   mustBeInTeam: boolean = false
 ) {
+  if (db === undefined) throw ERRORS.MOCKING_BACKEND;
   const creator = await getUid(body);
 
   if (creator === "") {
@@ -44,6 +45,7 @@ export async function getUser(
 }
 
 export async function getUid(body: any): Promise<string> {
+  if (auth === undefined) throw ERRORS.MOCKING_BACKEND;
   let uid = "";
 
   const token: string = body.token;

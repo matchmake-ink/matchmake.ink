@@ -8,7 +8,8 @@ export enum INIT_APP {
 
 export default function initApp(): INIT_APP {
   if (getApps().length <= 0) {
-    if (!process.env.init_firebase_app) {
+    if (process.env.init_firebase_app !== "real") {
+      console.log("no env file");
       return INIT_APP.NO_ENV;
     }
 

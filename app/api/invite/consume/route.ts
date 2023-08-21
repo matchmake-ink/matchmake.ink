@@ -9,6 +9,8 @@ export async function POST(request: Request) {
   const body = await request.clone().json();
 
   try {
+    if (db === undefined) throw ERRORS.MOCKING_BACKEND;
+
     const user = await getUser(body, false, true);
     uid = user.uid;
 

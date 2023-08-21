@@ -10,6 +10,8 @@ import { db } from "@/lib/server/firebase";
 export async function POST(request: Request) {
   const body = await request.clone().json();
   try {
+    if (db === undefined) throw ERRORS.MOCKING_BACKEND;
+
     const uid = await getUid(body);
 
     const profile = await db.doc(`profiles/${uid}`).get();

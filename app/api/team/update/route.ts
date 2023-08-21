@@ -7,6 +7,7 @@ export async function POST(request: Request) {
   const body = await request.clone().json();
 
   try {
+    if (db === undefined) throw ERRORS.MOCKING_BACKEND;
     const { teamId } = await getUser(body, true, true);
 
     const teamName: string = body.name;
