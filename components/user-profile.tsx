@@ -22,7 +22,7 @@ export default function UserProfile() {
           sendou={profile.sendou}
           rank={profile.rank}
           teamName="Bread Gang"
-          teamAvatar="https://via.placeholder.com/150"
+          teamAvatar="/images/team_placeholder.png"
         />
       ) : (
         <p>Something went wrong! Are you signed in?</p>
