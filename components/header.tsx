@@ -1,6 +1,6 @@
 export default function Header() {
   return (
-    <header className="flex items-center justify-between px-4 py-2 bg-background-dark border-text border-b h-20">
+    <header className="flex items-center justify-between px-4 py-2 bg-background-dark border-text border-b h-20 sticky top-0 w-full">
       <h1 className="font-stylized opacity-0 w-0 lg:opacity-100 lg:w-full">
         matchmake.ink
       </h1>

@@ -1,6 +1,6 @@
 export default function Sidebar() {
   return (
-    <nav className="flex flex-col bg-background-dark">
+    <aside className="w-1/4 overflow-y-auto bg-background-dark flex flex-col">
       <a href="/play" className="sidebar-button">
         Home
       </a>
@@ -13,6 +13,6 @@ export default function Sidebar() {
       <a href="/play/danger" className="sidebar-button">
         Danger Zone
       </a>
-    </nav>
+    </aside>
   );
 }
