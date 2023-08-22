@@ -7,7 +7,6 @@ export default function UserProfile() {
   const { profile, profileLoading, profileError } = useProfile();
 
   if (profileLoading) return <p>Loading...</p>;
-  console.log(profile);
 
   return (
     <>

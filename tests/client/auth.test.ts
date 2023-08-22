@@ -41,7 +41,6 @@ describe("auth", () => {
         // @ts-ignore
         ...actual,
         useAuthState: vi.fn(() => {
-          console.log("im being called");
           return [null, false, null];
         }),
       };

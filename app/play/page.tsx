@@ -20,8 +20,6 @@ export default function Dashboard() {
               token: (await auth.currentUser?.getIdToken(true)) || "",
             }),
           });
-
-          console.log(res);
         }}
       >
         Create a Team

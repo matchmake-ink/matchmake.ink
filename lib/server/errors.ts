@@ -13,8 +13,6 @@ export enum ERRORS {
 }
 
 export async function getErrorResponse(error: unknown) {
-  console.log("I'm an error");
-  console.log(error);
   return errors.get(error as string) ?? errors.get("serverError");
 }
 

@@ -14,11 +14,10 @@ export default function PlayLayout({
   const { user, userLoading, userError } = useUser();
 
   useEffect(() => {
-    console.log(user, userLoading, userError);
     if (userLoading) return;
 
     if (user === null || userError) {
-      router.push("/auth");
+      router.push("/");
     }
   }, [router, userLoading, user, userError]);
   return (

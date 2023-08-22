@@ -9,7 +9,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { user, userLoading, userError } = useUser();
 
   useEffect(() => {
-    console.log(user, userLoading, userError);
     if (userLoading) return;
 
     if (user === null || userError) {
