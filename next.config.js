@@ -4,6 +4,7 @@ const nextConfig = {
     domains: ["via.placeholder.com"],
   },
   swcMinify: true,
+  reactStrictMode: false,
 };
 
 module.exports = nextConfig;

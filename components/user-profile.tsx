@@ -4,10 +4,15 @@ import { useUser } from "@/lib/client/auth";
 import ProfileCard from "./profile-card";
 import Button from "./button";
 
+let time = Date.now();
+
 // retuns an automatically updating ProfileCard for the currently logged in User's profile
 export default function UserProfile() {
   const { user } = useUser();
   const { profile, profileLoading, profileError } = useProfile();
+  console.log("\n\n");
+  console.log(user, profile, profileLoading, profileError);
+  console.log(Date.now() - time);
 
   if (profileLoading) return <p>Loading...</p>;
 

@@ -8,9 +8,12 @@ export default function Profile({ params }: { params: { profile: string } }) {
   const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     const fetchProfile = async () => {
+      let time = Date.now();
       const profile = await getProfile(params.profile)
         .then((profile) => profile)
         .catch(() => null);
+
+      console.log(Date.now() - time);
 
       setProfile(profile);
       setLoading(false);
