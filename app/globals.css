@@ -38,7 +38,11 @@ h4 {
 }
 
 .nav-item {
-  @apply text-lg font-bold mx-4 p-4 bg-primary-500 outline-text outline outline-1 rounded-lg hover:bg-primary-400 transition-all font-stylized text-text hover:text-text;
+  @apply text-lg font-bold mx-4 bg-primary-500 hover:bg-primary-400 transition-all font-stylized text-text hover:text-text border-2 w-14 h-14 flex justify-center items-center;
+}
+
+.nav-icon {
+  @apply text-2xl mx-auto my-auto;
 }
 
 a {
@@ -55,4 +59,8 @@ li {
 
 .sidebar-button {
   @apply text-2xl font-bold m-4 p-4 rounded-lg transition-all text-text hover:text-primary-300;
+}
+
+.h-page {
+  @apply h-[calc(100vh-5rem)];
 }

@@ -43,15 +43,12 @@ export async function createTeam(
       email: teamEmail,
     }),
   });
-  console.log(res);
 
   const body = await res
     .clone()
     .json()
     .then((body) => body)
     .catch((error) => console.log(error));
-
-  console.log(body);
 
   if (res.status > 210) {
     return Promise.reject();

@@ -1,6 +1,5 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import Header from "@/components/header";
 import RootLayout from "@/layouts/root";
 
 export const metadata: Metadata = {
@@ -13,7 +12,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <body className="bg-background-normal text-text">
         <RootLayout>
-          <Header />
           <>{children}</>
         </RootLayout>
       </body>

@@ -42,6 +42,7 @@ export default function ProfileEditor({
       <Button
         label="Update Profile"
         color="primary"
+        className="my-4 max-w-lg mx-auto"
         onClick={() => setOpen(true)}
       />
       <Modal open={open} onClose={() => setOpen(false)} title="Update Profile">

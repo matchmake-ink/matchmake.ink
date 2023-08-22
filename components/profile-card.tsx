@@ -26,7 +26,7 @@ export default function ProfileCard({
   region = "",
 }: ProfileCardProps) {
   return (
-    <div className="max-w-sm bg-secondary-600 rounded-xl">
+    <div className="max-w-sm mx-auto my-4 bg-secondary-600 rounded-xl">
       <div className="flex flex-row align-midde justify-center bg-secondary-400 rounded-xl py-4">
         <Image
           unoptimized

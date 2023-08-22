@@ -12,7 +12,6 @@ export default function Profile({ params }: { params: { profile: string } }) {
         .then((profile) => profile)
         .catch(() => null);
 
-      console.log(profile);
       setProfile(profile);
       setLoading(false);
     };

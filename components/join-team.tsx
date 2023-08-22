@@ -23,7 +23,6 @@ export default function JoinTeam() {
             label="Join"
             disabled={!code}
             onClick={async () => {
-              console.log("i was called");
               await joinTeam(code);
             }}
           />
