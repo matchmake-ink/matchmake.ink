@@ -23,9 +23,9 @@ export default function PlayLayout({
   return (
     <>
       <Header />
-      <div className="flex flex-row h-page">
+      <div className="flex flex-row h-page w-screen">
         <Sidebar />
-        <main className="w-3/4 overflow-y-auto">{children}</main>
+        <main className="w-full overflow-y-auto">{children}</main>
       </div>
     </>
   );
