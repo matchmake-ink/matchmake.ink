@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import { BsDiscord, BsGlobe, BsTrophyFill } from "react-icons/bs";
 import { GiSquidHead } from "react-icons/gi";
