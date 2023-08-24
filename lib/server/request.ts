@@ -1,11 +1,10 @@
 import { ERRORS } from "./errors";
 import { db, auth } from "./firebase";
 
-/**
- * Returns a snapshot of the user's profile and their team
- * @param request - The request from the client
- * @param captain - Whether the user has to be the captain or not
- */
+//! ----------------------------------------------
+//! BEGIN OLD LEGACY CODE YOU SHOULD NOT USE!!!
+// todo: delete this crap!
+
 export async function getUser(
   body: any,
   captain: boolean = false,
@@ -59,4 +58,50 @@ export async function getUid(body: any): Promise<string> {
   });
 
   return Promise.resolve(uid);
+}
+
+//! END OLD LEGACY CODE
+//! ----------------------------------------------
+
+export class ServerFunction {
+  map: Map<string, any> = new Map();
+
+  async init(request: Request) {
+    const body = await request.clone().json();
+    const entires = Object.entries(body);
+
+    for (const [key, value] of entires) {
+      this.map.set(key, value);
+    }
+  }
+
+  getProperty<T>(
+    key: string,
+    validator: (value: any) => boolean = () => true
+  ): T {
+    const value = this.map.get(key) as T;
+
+    if (value === undefined && validator(value)) {
+      throw ERRORS.BAD_ARGS;
+    }
+
+    return value;
+  }
+
+  async getUid(): Promise<string> {
+    if (auth === undefined) throw ERRORS.MOCKING_BACKEND;
+    let uid = "";
+
+    const token: string = this.getProperty<string>("token");
+
+    if (token === undefined) {
+      return Promise.resolve("");
+    }
+
+    await auth.verifyIdToken(token).then((decodedToken) => {
+      uid = decodedToken.uid;
+    });
+
+    return Promise.resolve(uid);
+  }
 }
