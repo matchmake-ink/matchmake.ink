@@ -1,23 +1,14 @@
 import { ERRORS, getErrorResponse } from "@/lib/server/errors";
-import { getUser } from "@/lib/server/user";
-import { db } from "@/lib/server/firebase";
+import { ServerFunction } from "@/lib/server/request";
 
 export async function POST(request: Request) {
-  let uid: string;
   let team: string;
 
-  const body = await request.clone().json();
-
   try {
-    if (db === undefined) throw ERRORS.MOCKING_BACKEND;
+    const func = new ServerFunction();
+    const { db } = await func.init(request);
 
-    const user = await getUser(body, false, true);
-    uid = user.uid;
-
-    const { inviteId } = body;
-    if (inviteId === undefined) {
-      throw ERRORS.BAD_ARGS;
-    }
+    const inviteId = func.getProperty<string>("inviteId");
 
     const inviteRef = db.doc(`invites/${inviteId}`);
     const invite = await inviteRef.get();
@@ -34,7 +25,7 @@ export async function POST(request: Request) {
     return await getErrorResponse(error);
   }
 
-  return new Response(JSON.stringify({ success: true }), {
+  return new Response(JSON.stringify({ team: team }), {
     headers: { "content-type": "application/json" },
     status: 200,
   });

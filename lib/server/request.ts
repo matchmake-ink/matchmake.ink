@@ -1,78 +1,21 @@
 import { ERRORS } from "./errors";
 import { db, auth } from "./firebase";
 
-//! ----------------------------------------------
-//! BEGIN OLD LEGACY CODE YOU SHOULD NOT USE!!!
-// todo: delete this crap!
-
-export async function getUser(
-  body: any,
-  captain: boolean = false,
-  mustBeInTeam: boolean = false
-) {
-  if (db === undefined) throw ERRORS.MOCKING_BACKEND;
-  const creator = await getUid(body);
-
-  if (creator === "") {
-    throw ERRORS.NO_ID;
-  }
-
-  const profile = await db.doc(`profiles/${creator}`).get();
-  const teamId = profile.get("teamId");
-
-  if ((typeof teamId !== "string" || teamId === "") && mustBeInTeam) {
-    throw ERRORS.MUST_BE_IN_TEAM;
-  }
-
-  if ((typeof teamId === "string" || teamId !== "") && !mustBeInTeam) {
-    throw ERRORS.MUST_BE_FREE_AGENT;
-  }
-
-  const team = await db.doc(`teams/${teamId}`).get();
-
-  // check if captain is the user
-  if (team.get("captain") !== creator && captain) {
-    throw ERRORS.MUST_BE_CAPTAIN;
-  }
-
-  return {
-    uid: creator,
-    teamId: teamId,
-    profile: profile,
-    team: team,
-  };
-}
-
-export async function getUid(body: any): Promise<string> {
-  if (auth === undefined) throw ERRORS.MOCKING_BACKEND;
-  let uid = "";
-
-  const token: string = body.token;
-
-  if (token === undefined) {
-    return Promise.resolve("");
-  }
-
-  await auth.verifyIdToken(token).then((decodedToken) => {
-    uid = decodedToken.uid;
-  });
-
-  return Promise.resolve(uid);
-}
-
-//! END OLD LEGACY CODE
-//! ----------------------------------------------
-
 export class ServerFunction {
   map: Map<string, any> = new Map();
+  user: User | undefined = undefined;
 
   async init(request: Request) {
+    if (auth === undefined || db === undefined) throw ERRORS.MOCKING_BACKEND;
+
     const body = await request.clone().json();
     const entires = Object.entries(body);
 
     for (const [key, value] of entires) {
       this.map.set(key, value);
     }
+
+    return { db, auth };
   }
 
   getProperty<T>(
@@ -104,4 +47,53 @@ export class ServerFunction {
 
     return Promise.resolve(uid);
   }
+
+  async getUser(): Promise<User> {
+    if (db === undefined) throw ERRORS.MOCKING_BACKEND;
+
+    if (this.user !== undefined) {
+      return this.user;
+    }
+
+    const uid = await this.getUid();
+    let profile, teamId, team;
+
+    try {
+      profile = await db.doc(`profiles/${uid}`).get();
+      teamId = profile.get("teamId");
+      team = await db.doc(`teams/${teamId}`).get();
+    } catch (e) {
+      throw ERRORS.READ_ERROR;
+    }
+
+    return Promise.resolve({
+      uid: uid,
+      teamId: teamId,
+      profile: profile,
+      team: team,
+    });
+  }
+
+  async enforce({
+    captain = false,
+    onTeam = false,
+    freeAgent = false,
+    authenticated = false,
+  }: EnforceOptions) {
+    return Promise.resolve();
+  }
+}
+
+interface EnforceOptions {
+  captain: boolean;
+  onTeam: boolean;
+  freeAgent: boolean;
+  authenticated: boolean;
+}
+
+interface User {
+  uid: string;
+  teamId: string;
+  profile: FirebaseFirestore.DocumentSnapshot;
+  team: FirebaseFirestore.DocumentSnapshot;
 }

@@ -1,16 +1,14 @@
-import { getUser } from "@/lib/server/user";
-import { ERRORS, getErrorResponse } from "@/lib/server/errors";
+import { getErrorResponse } from "@/lib/server/errors";
 import { genRandomInviteCode } from "@/lib/server/random";
-import { db } from "@/lib/server/firebase";
+import { ServerFunction } from "@/lib/server/request";
 
 export async function POST(request: Request) {
-  const body = await request.clone().json();
   let inviteId: string;
   try {
-    if (db === undefined) throw ERRORS.MOCKING_BACKEND;
+    const func = new ServerFunction();
+    const { db } = await func.init(request);
 
-    const { teamId } = await getUser(body, false, true);
-
+    const { teamId } = await func.getUser();
     inviteId = genRandomInviteCode();
 
     await db.doc(`invites/${inviteId}`).set({

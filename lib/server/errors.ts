@@ -10,6 +10,7 @@ export enum ERRORS {
   SERVER_ERROR = "serverError",
   INVITE_EXPIRED = "inviteExpired",
   MOCKING_BACKEND = "mockingBackend",
+  READ_ERROR = "readError",
 }
 
 export async function getErrorResponse(error: unknown) {
@@ -146,16 +147,34 @@ errors.set(
 );
 
 errors.set(
+  ERRORS.READ_ERROR,
+  new Response(
+    JSON.stringify({
+      message: "error reading from database",
+    }),
+    {
+      status: 500,
+      statusText: "Error reading from database",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+);
+
+errors.set(
   ERRORS.MOCKING_BACKEND,
   new Response(
     JSON.stringify({
       result: "success",
       invite: "12345678",
+      uid: "12345678",
+      token: "12345678",
     }),
     {
       status: 200,
       statusText:
-        "The backend is being mocked and your request didn't actually do anyting. If you're a user and seeing this, or if you're a developer working on the backend, this is a problem and you should contact the developer. Otherwise, you can ignore this.",
+        "The backend is being mocked and your request didn't actually do anyting. If you're a user and seeing this, or if you're a developer working on the backend, this is a problem and you should cry. Otherwise, you can ignore this.",
       headers: {
         "Content-Type": "application/json",
       },

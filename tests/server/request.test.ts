@@ -1,4 +1,5 @@
 import { ServerFunction } from "@/lib/server/request";
+import { vi } from "vitest";
 import { ERRORS } from "@/lib/server/errors";
 
 async function getServerFunction() {
@@ -20,6 +21,22 @@ async function getServerFunction() {
 }
 
 describe("RequestWrapper", () => {
+  beforeEach(() => {
+    vi.mock("@/lib/server/firebase", () => {
+      return {
+        auth: {
+          verifyIdToken: (token: string) => {
+            if (token === "test") {
+              return Promise.resolve({ uid: "test" });
+            } else {
+              return Promise.reject();
+            }
+          },
+        },
+        db: {},
+      };
+    });
+  });
   it("should parse the request into a map and get the properties", async () => {
     const wrapper = await getServerFunction();
 
@@ -32,5 +49,17 @@ describe("RequestWrapper", () => {
     expect(() => wrapper.getProperty<string>("notFound")).toThrow(
       ERRORS.BAD_ARGS
     );
+  });
+  it("should not throw if nothing is enforces", async () => {
+    const wrapper = await getServerFunction();
+
+    expect(() =>
+      wrapper.enforce({
+        captain: false,
+        onTeam: false,
+        freeAgent: false,
+        authenticated: false,
+      })
+    ).not.toThrow();
   });
 });
