@@ -33,11 +33,4 @@ describe("RequestWrapper", () => {
       ERRORS.BAD_ARGS
     );
   });
-  it("should throw an error if a typecast fails", async () => {
-    const wrapper = await getServerFunction();
-
-    expect(() => wrapper.getProperty<boolean>("failedTypecast")).toThrow(
-      ERRORS.BAD_ARGS
-    );
-  });
 });

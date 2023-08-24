@@ -81,7 +81,7 @@ export class ServerFunction {
   ): T {
     const value = this.map.get(key) as T;
 
-    if (value === undefined && validator(value)) {
+    if (value === undefined || !validator(value)) {
       throw ERRORS.BAD_ARGS;
     }
 
