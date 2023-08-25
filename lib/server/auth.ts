@@ -88,4 +88,6 @@ export async function signUpWithPassword(
   } catch (e) {
     throw ERRORS.AUTHENTICATION_FAILED;
   }
+
+  return res;
 }

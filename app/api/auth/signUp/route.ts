@@ -1,5 +1,9 @@
 import { ServerFunction } from "@/lib/server/request";
-import { AuthSuccess, signInWithPassword } from "@/lib/server/auth";
+import {
+  AuthSuccess,
+  SignUpOptions,
+  signUpWithPassword,
+} from "@/lib/server/auth";
 import { getErrorResponse } from "@/lib/server/errors";
 
 export async function POST(request: Request) {
@@ -11,8 +15,12 @@ export async function POST(request: Request) {
 
     const email = func.getProperty<string>("email");
     const password = func.getProperty<string>("password");
+    const options = func.getProperty<SignUpOptions>(
+      "options",
+      (value) => (value as SignUpOptions) !== undefined
+    );
 
-    res = await signInWithPassword(email, password);
+    res = await signUpWithPassword(email, password, options);
   } catch (e) {
     return getErrorResponse(e);
   }
