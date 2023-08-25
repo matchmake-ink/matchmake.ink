@@ -1,20 +1,8 @@
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/client/firebase";
-import { useDocument } from "react-firebase-hooks/firestore";
-import { auth } from "@/lib/client/firebase";
 import { StateContext } from "./context";
 import { useContext } from "react";
-
-export interface Profile {
-  discordTag: string;
-  ign: string;
-  avatar: string;
-  teamId: string;
-  bio?: string;
-  sendou?: string;
-  rank?: string;
-  region?: string;
-}
+import { Profile } from "../interfaces";
 
 export async function setProfile(
   userId: string,

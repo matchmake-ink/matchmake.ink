@@ -4,13 +4,6 @@ import { StateContext } from "./context";
 
 // note - this file does not have unit tests because it simply wraps api calls
 
-export interface Team {
-  id: string;
-  name: string;
-  members: string[];
-  avatar: string;
-}
-
 export async function updateTeam(
   teamName: string,
   teamEmail: string

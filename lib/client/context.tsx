@@ -1,11 +1,9 @@
 import { createContext } from "react";
-import { useProfile } from "./profile";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "./firebase";
 import { doc } from "firebase/firestore";
-import { Profile } from "./profile";
-import { Team } from "./team";
+import { Team, Profile } from "@/lib/interfaces";
 import { User } from "firebase/auth";
 
 interface StateContext {

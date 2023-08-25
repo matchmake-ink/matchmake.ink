@@ -80,6 +80,24 @@ export class ServerFunction {
     freeAgent = false,
     authenticated = false,
   }: EnforceOptions) {
+    const { profile, team } = await this.getUser();
+
+    if (authenticated && profile === undefined) {
+      throw ERRORS.NO_ID;
+    }
+
+    if (onTeam && team === undefined) {
+      throw ERRORS.MUST_BE_IN_TEAM;
+    }
+
+    if (freeAgent && team !== undefined) {
+      throw ERRORS.MUST_BE_FREE_AGENT;
+    }
+
+    if (captain && profile !== undefined && profile.get("captain") === false) {
+      throw ERRORS.MUST_BE_CAPTAIN;
+    }
+
     return Promise.resolve();
   }
 }
