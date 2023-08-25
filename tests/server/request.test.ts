@@ -33,7 +33,22 @@ describe("RequestWrapper", () => {
             }
           },
         },
-        db: {},
+        db: {
+          doc: (path: string) => {
+            return {
+              get: () => {
+                return {
+                  update: (data: any) => {
+                    return Promise.resolve();
+                  },
+                  get: () => {
+                    return Promise.resolve({});
+                  },
+                };
+              },
+            };
+          },
+        },
       };
     });
   });
@@ -50,7 +65,7 @@ describe("RequestWrapper", () => {
       ERRORS.BAD_ARGS
     );
   });
-  it("should not throw if nothing is enforces", async () => {
+  it("should not throw if nothing is enforced", async () => {
     const wrapper = await getServerFunction();
 
     expect(() =>

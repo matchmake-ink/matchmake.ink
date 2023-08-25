@@ -80,22 +80,30 @@ export class ServerFunction {
     freeAgent = false,
     authenticated = false,
   }: EnforceOptions) {
-    const { profile, team } = await this.getUser();
+    try {
+      const { profile, team } = await this.getUser();
 
-    if (authenticated && profile === undefined) {
-      throw ERRORS.NO_ID;
-    }
+      if (authenticated && profile === undefined) {
+        throw ERRORS.NO_ID;
+      }
 
-    if (onTeam && team === undefined) {
-      throw ERRORS.MUST_BE_IN_TEAM;
-    }
+      if (onTeam && team === undefined) {
+        throw ERRORS.MUST_BE_IN_TEAM;
+      }
 
-    if (freeAgent && team !== undefined) {
-      throw ERRORS.MUST_BE_FREE_AGENT;
-    }
+      if (freeAgent && team !== undefined) {
+        throw ERRORS.MUST_BE_FREE_AGENT;
+      }
 
-    if (captain && profile !== undefined && profile.get("captain") === false) {
-      throw ERRORS.MUST_BE_CAPTAIN;
+      if (
+        captain &&
+        profile !== undefined &&
+        profile.get("captain") === false
+      ) {
+        throw ERRORS.MUST_BE_CAPTAIN;
+      }
+    } catch (e) {
+      throw e;
     }
 
     return Promise.resolve();
