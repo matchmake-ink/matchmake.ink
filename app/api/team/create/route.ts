@@ -1,4 +1,4 @@
-import { ERRORS, getErrorResponse } from "@/lib/server/errors";
+import { getErrorResponse } from "@/lib/server/errors";
 import { genRandomUid } from "@/lib/server/random";
 import { getGravatarUrl } from "@/lib/client/gravatar";
 import { createTeam } from "@/lib/server/database";
@@ -7,7 +7,6 @@ import { ServerFunction } from "@/lib/server/request";
 // can't write tests for this because firebase is a pain
 // I mean I could but it's really just not worth the effort
 export async function POST(request: Request) {
-  const body = await request.clone().json();
   try {
     const func = new ServerFunction();
     await func.init(request);

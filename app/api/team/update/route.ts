@@ -1,7 +1,6 @@
 import { getGravatarUrl } from "@/lib/client/gravatar";
 import { ServerFunction } from "@/lib/server/request";
-import { db } from "@/lib/server/firebase";
-import { getErrorResponse, ERRORS } from "@/lib/server/errors";
+import { getErrorResponse } from "@/lib/server/errors";
 
 export async function POST(request: Request) {
   try {
