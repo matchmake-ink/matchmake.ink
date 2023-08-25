@@ -1,4 +1,16 @@
-// list of errors to return if something goes wrong on the backend
+// list of errors that can be thrown at any point in the backend (assuming all api functions are called within a try/catch block)
+// A simple pattern is this:
+/*
+function POST() {
+  try {
+    <Do whatever I need to do>
+  } catch(e) {
+    return getErrorResponse(e);
+  }
+
+  return <some response indicating response>
+}
+*/
 
 export enum ERRORS {
   NO_ID = "noId",
@@ -11,6 +23,7 @@ export enum ERRORS {
   INVITE_EXPIRED = "inviteExpired",
   MOCKING_BACKEND = "mockingBackend",
   READ_ERROR = "readError",
+  AUTHENTICATION_FAILED = "authFailed",
 }
 
 export async function getErrorResponse(error: unknown) {
@@ -175,6 +188,22 @@ errors.set(
       status: 200,
       statusText:
         "The backend is being mocked and your request didn't actually do anyting. If you're a user and seeing this, or if you're a developer working on the backend, this is a problem and you should cry. Otherwise, you can ignore this.",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+);
+
+errors.set(
+  ERRORS.AUTHENTICATION_FAILED,
+  new Response(
+    JSON.stringify({
+      message: "authentication failed",
+    }),
+    {
+      status: 401,
+      statusText: "Authentication failed",
       headers: {
         "Content-Type": "application/json",
       },

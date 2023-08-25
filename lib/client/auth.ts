@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword,
   UserCredential,
 } from "firebase/auth";
-import { getGravatarUrl } from "./gravatar";
+import { getGravatarUrl } from "../gravatar";
 import { StateContext } from "./context";
 import { useContext } from "react";
 
