@@ -8,10 +8,20 @@ export class ServerFunction {
   async init(request: Request) {
     if (auth === undefined || db === undefined) throw ERRORS.MOCKING_BACKEND;
 
-    const body = await request.clone().json();
-    const entires = Object.entries(body);
+    try {
+      const body = await request.clone().json();
+      const entries = Object.entries(body);
 
-    for (const [key, value] of entires) {
+      for (const [key, value] of entries) {
+        this.map.set(key, value);
+      }
+    } catch (e) {
+      console.log("body wasn't found. This is fine if it's a GET request.");
+    }
+
+    // parse the url parameters
+    const url = new URL(request.url);
+    for (const [key, value] of url.searchParams) {
       this.map.set(key, value);
     }
 
