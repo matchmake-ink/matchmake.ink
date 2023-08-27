@@ -8,7 +8,7 @@ export async function updateTeam(
   teamName: string,
   teamEmail: string
 ): Promise<void> {
-  const res = await fetch("/api/team/update", {
+  const res = await fetch("/api/team/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
