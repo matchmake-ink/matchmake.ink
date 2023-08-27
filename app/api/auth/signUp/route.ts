@@ -1,13 +1,10 @@
 import { ServerFunction } from "@/lib/server/request";
-import {
-  AuthSuccess,
-  SignUpOptions,
-  signUpWithPassword,
-} from "@/lib/server/auth";
+import { SignUpOptions, signUpWithPassword } from "@/lib/server/auth";
+import { AuthResponse } from "@/lib/interfaces";
 import { getErrorResponse } from "@/lib/server/errors";
 
 export async function POST(request: Request) {
-  let res: AuthSuccess;
+  let res: AuthResponse;
 
   try {
     const func = new ServerFunction();

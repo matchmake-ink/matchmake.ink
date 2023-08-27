@@ -7,12 +7,7 @@ import {
 import { getGravatarUrl } from "../gravatar";
 import { db } from "./firebase";
 
-export interface AuthSuccess {
-  uid: string;
-  email: string;
-  avatar: string;
-  token: string;
-}
+import { AuthResponse } from "../interfaces";
 
 export interface SignUpOptions {
   ign?: string;
@@ -20,7 +15,7 @@ export interface SignUpOptions {
 }
 
 export async function signInWithPassword(email: string, password: string) {
-  let res: AuthSuccess = {
+  let res: AuthResponse = {
     uid: "",
     email: "",
     token: "",
@@ -53,7 +48,7 @@ export async function signUpWithPassword(
   password: string,
   options: SignUpOptions = {}
 ) {
-  let res: AuthSuccess = {
+  let res: AuthResponse = {
     uid: "",
     email: "",
     token: "",

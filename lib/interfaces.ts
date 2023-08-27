@@ -15,3 +15,10 @@ export interface Team {
   members: string[];
   avatar: string;
 }
+
+export interface AuthResponse {
+  uid: string;
+  email: string;
+  avatar: string;
+  token: string;
+}

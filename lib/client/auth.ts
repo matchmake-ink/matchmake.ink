@@ -1,66 +1,73 @@
-import { auth, db } from "@/lib/client/firebase";
-import { setDoc, doc } from "firebase/firestore";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  UserCredential,
-} from "firebase/auth";
-import { getGravatarUrl } from "../gravatar";
 import { StateContext } from "./context";
-import { useContext } from "react";
+import { Store } from "./store";
+import { AuthResponse } from "../interfaces";
+import { makeRequest } from "./api";
 
-export async function signUp(
-  email: string,
-  password: string,
-  ign: string,
-  discordTag: string
-): Promise<{ result: UserCredential | null; error: any }> {
-  let result = null;
-  let error = null;
+enum AuthState {
+  LOADING,
+  SIGNED_IN,
+  SIGNED_OUT,
+}
 
-  try {
-    result = await createUserWithEmailAndPassword(auth, email, password);
+export class Auth {
+  email: string = "";
+  password: string = "";
+  ign: string = "";
+  discordTag: string = "";
 
-    const userId = result.user.uid;
-    await setDoc(doc(db, "profiles", userId), {
-      ign: ign,
-      discordTag: discordTag,
-      teamId: "",
-      avatar: getGravatarUrl(email),
-    });
-  } catch (e) {
-    error = e;
+  state: AuthState = AuthState.LOADING;
+
+  async signUp(
+    email: string,
+    password: string,
+    ign: string,
+    discordTag: string
+  ): Promise<{ result: AuthResponse; statusText: string; status: number }> {
+    const { statusText, body, status } = await makeRequest(
+      "POST",
+      "/api/auth/signUp",
+      {
+        email,
+        password,
+        ign,
+        discordTag,
+      }
+    );
+
+    const result: AuthResponse = {
+      token: body.token ?? "",
+      uid: body.uid ?? "",
+      email: body.email ?? "",
+      avatar: body.avatar ?? "",
+    };
+
+    return Promise.resolve({ result, statusText, status });
   }
 
-  return Promise.resolve({ result, error });
-}
+  async signIn(
+    email: string,
+    password: string
+  ): Promise<{
+    result: AuthResponse | null;
+    status: number;
+    statusText: string;
+  }> {
+    const { statusText, body, status } = await makeRequest(
+      "POST",
+      "/api/auth/signIn",
+      {
+        email,
+        password,
+      }
+    );
 
-export async function signIn(
-  email: string,
-  password: string
-): Promise<{ result: UserCredential | null; error: any }> {
-  let result = null;
-  let error = null;
+    const result: AuthResponse = {
+      token: body.token ?? "",
+      uid: body.uid ?? "",
+      email: body.email ?? "",
+      avatar: body.avatar ?? "",
+    };
 
-  try {
-    result = await signInWithEmailAndPassword(auth, email, password);
-  } catch (e) {
-    error = e;
+    return Promise.resolve({ result, statusText, status });
   }
-
-  return Promise.resolve({ result, error });
-}
-
-export function useUser() {
-  const { user, loading, errors } = useContext(StateContext);
-
-  return {
-    user: user === undefined ? null : user,
-    userLoading: loading,
-    userError: errors[0],
-  };
-}
-
-export async function signOut(): Promise<void> {
-  await auth.signOut();
 }
