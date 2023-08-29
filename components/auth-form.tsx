@@ -1,5 +1,5 @@
 "use client";
-import { signIn, signUp } from "@/lib/client/auth";
+import { auth } from "@/lib/client/auth";
 import { useCallback, useState } from "react";
 import Button from "./button";
 import Input from "./input";
@@ -14,10 +14,15 @@ export default function AuthForm() {
   const onSubmit = useCallback(async () => {
     // TODO: add proper error handling
     if (signingIn) {
-      let result = await signIn(email, password);
+      let result = await auth.signInWithPassword(email, password);
       console.log(result);
     } else {
-      let result = await signUp(email, password, ign, discordTag);
+      let result = await auth.signUpWithPassword(
+        email,
+        password,
+        ign,
+        discordTag
+      );
       console.log(result);
     }
   }, [email, password, signingIn, ign, discordTag]);

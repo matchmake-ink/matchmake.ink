@@ -1,23 +1,45 @@
-import { StateContext } from "./context";
-import { Store } from "./store";
+import { LocalStore } from "./store";
+import { createContext } from "react";
 import { AuthResponse } from "../interfaces";
 import { makeRequest } from "./api";
 
-enum AuthState {
-  LOADING,
-  SIGNED_IN,
-  SIGNED_OUT,
+enum AUTH_STATUS {
+  LOGGED_IN,
+  LOGGED_OUT,
+}
+
+interface AuthState {
+  state: AUTH_STATUS;
+  res: AuthResponse | null;
 }
 
 export class Auth {
-  email: string = "";
-  password: string = "";
-  ign: string = "";
-  discordTag: string = "";
+  store: LocalStore<AuthState>;
 
-  state: AuthState = AuthState.LOADING;
+  constructor() {
+    this.store = new LocalStore<AuthState>("auth", {
+      state: AUTH_STATUS.LOGGED_OUT,
+      res: null,
+    });
+  }
 
-  async signUp(
+  getStatus(): AUTH_STATUS {
+    return this.store.get().state;
+  }
+
+  getAuthResponse(): AuthResponse | null {
+    return this.store.get().res;
+  }
+
+  subscribe(listener: (data: AuthState) => void) {
+    this.store.subscribe(listener);
+  }
+
+  unsubscribe(listener: (data: AuthState) => void) {
+    this.store.unsubscribe(listener);
+  }
+
+  async signUpWithPassword(
     email: string,
     password: string,
     ign: string,
@@ -41,10 +63,22 @@ export class Auth {
       avatar: body.avatar ?? "",
     };
 
+    if (status === 200) {
+      this.store.set({
+        state: AUTH_STATUS.LOGGED_IN,
+        res: result,
+      });
+    } else {
+      this.store.set({
+        state: AUTH_STATUS.LOGGED_OUT,
+        res: null,
+      });
+    }
+
     return Promise.resolve({ result, statusText, status });
   }
 
-  async signIn(
+  async signInWithPassword(
     email: string,
     password: string
   ): Promise<{
@@ -68,6 +102,29 @@ export class Auth {
       avatar: body.avatar ?? "",
     };
 
+    if (status === 200) {
+      this.store.set({
+        state: AUTH_STATUS.LOGGED_IN,
+        res: result,
+      });
+    } else {
+      this.store.set({
+        state: AUTH_STATUS.LOGGED_OUT,
+        res: null,
+      });
+    }
+
     return Promise.resolve({ result, statusText, status });
   }
+
+  async signOut(): Promise<void> {
+    this.store.set({
+      state: AUTH_STATUS.LOGGED_OUT,
+      res: null,
+    });
+
+    return Promise.resolve();
+  }
 }
+
+export const auth = new Auth();
